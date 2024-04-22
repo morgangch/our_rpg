@@ -10,7 +10,7 @@
 #include "my.h"
 
 // Structure de la fenêtre
-typedef struct {
+typedef struct main_window_s {
     sfRenderWindow *window;
     sfEvent event;
-} MainWindow;
+} main_window_t;
