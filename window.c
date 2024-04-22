@@ -19,14 +19,14 @@ int event_handling(sfRenderWindow *window, sfEvent event)
 
 int main(void)
 {
-    main_window_t main = {0};
+    main_window_t *main = malloc(sizeof(main_window_t));
     sfVideoMode mode = {1280, 720, 32};
 
-    main.window = sfRenderWindow_create(mode, "My_RPG", sfClose, NULL);
-    while (sfRenderWindow_isOpen(main.window)) {
-        event_handling(main.window, main.event);
-        sfRenderWindow_clear(main.window, sfBlack);
-        sfRenderWindow_display(main.window);
-        }
-    sfRenderWindow_destroy(main.window);
+    main->window = sfRenderWindow_create(mode, "My_RPG", sfClose, NULL);
+    while (sfRenderWindow_isOpen(main->window)) {
+        event_handling(main->window, main->event);
+        sfRenderWindow_clear(main->window, sfBlack);
+        sfRenderWindow_display(main->window);
+    }
+    sfRenderWindow_destroy(main->window);
 }
