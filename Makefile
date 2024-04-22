@@ -7,18 +7,20 @@
 
 NAME	=	my_rpg
 
-SRCS	=	./Program/window.c 		\
+SRCS	=	window.c 		\
 
 OBJS	=	$(SRCS:.c=.o)
 
+LDFLAGS	=	-lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
+
 CFLAGS	=	-W -Wall -Wextra -Werror
 
-CPPFLAGS	=  -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
+CPPFLAGS	=  -I./includes
 
 all:	$(NAME)
 
 $(NAME):	$(OBJS)
-	gcc -o $(NAME) $(OBJS) $(CPPFLAGS)
+	gcc -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
 	rm -f $(OBJS)

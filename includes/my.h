@@ -19,4 +19,3 @@
 #include <SFML/Audio.h>
 #include <SFML/Window.h>
 #include <SFML/System.h>
-#include "struct.h"

@@ -5,7 +5,8 @@
 ** Window.c of my_rpg project
 */
 
-#include "../includes/my.h"
+#include "my.h"
+#include "struct.h"
 
 int event_handling(sfRenderWindow *window, sfEvent event)
 {
@@ -18,7 +19,7 @@ int event_handling(sfRenderWindow *window, sfEvent event)
 
 int main(void)
 {
-    MainWindow main;
+    main_window_t main = {0};
     sfVideoMode mode = {1280, 720, 32};
 
     main.window = sfRenderWindow_create(mode, "My_RPG", sfClose, NULL);
