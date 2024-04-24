@@ -83,6 +83,7 @@ typedef struct back_sprites_s {
     sprite_t *background_sprite;
     sprite_t *menu_sprite;
     sprite_t *gameover_sprite;
+    sprite_t *pausemenu_sprite;
 } back_sprites_t;
 
 typedef struct buttons_s {
@@ -135,14 +136,14 @@ int buffer_display(int width, int height, int bitsPerPixel);
 void analyse_events(config_t *config);
 sprite_t *create_sprite(char *fp,
     sfIntRect rect, offset_maxvalue_t offset_maxvalue_v, sfVector2f pos);
-config_t *create_config(int height, int width, int bitsPerPixel);
+config_t *create_config(void);
 void close_window(config_t *config);
 void move_rect(sprite_t *sprite);
 void move_sprite(config_t *config, sprite_t *sprite, int value_y);
-enemies_t *generate_x_entities_with_sprite(int x, int time);
+enemies_t *generate_x_entities_with_sprite(int x, int time, sfVideoMode mode);
 void write_score(unsigned long int score);
 unsigned long int get_score(void);
-void to_menu(config_t *config);
+void to_menu(config_t *config, int pause);
 char *my_itoa(unsigned long int nb);
 void to_game(config_t *config);
 int check_collision(config_t *config);
@@ -163,3 +164,4 @@ int my_char_islower(char c);
 char my_charupcase(char c);
 char my_charlowcase(char c);
 int my_is_prime(int nb);
+sfVector2f adapt_position(sfVector2f initial_pos, sfVideoMode mode);
