@@ -1,33 +1,59 @@
 ##
-## EPITECH PROJECT, 2024
-## Makefile
+## EPITECH PROJECT, 2023
+## makefile
 ## File description:
-## Makefile
+## Makefile myprintf
 ##
 
-NAME	=	my_rpg
+NAME	=	myhunter
 
-SRCS	=	window.c 		\
+SRCS =	main.c	\
+		altfuncs.c \
+		get_score.c \
+		check_collisions.c \
+		inits.c \
+		frees_destructs.c \
+		analysefuncs.c \
+		altfuncs2.c
 
-OBJS	=	$(SRCS:.c=.o)
 
-LDFLAGS	=	-lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
+OBJ = $(SRCS:.c=.o)
 
-CFLAGS	=	-W -Wall -Wextra -Werror
-
-CPPFLAGS	=  -I./includes
+CFLAGS = -W -Wall -Wno-unused-parameter -Wextra
+CPPFLAGS = -Iinclude/
+LDFLAGS =  	-lcsfml-graphics -lcsfml-window -lcsfml-system \
+			-lcsfml-audio -Llib/my -lmy
+DBUGFLAGS = -g3
+DBUGRUN_LOGNAME = valgrind-out.txt
+DBUGRUN_FLAGS = --leak-check=yes --show-leak-kinds=all --track-origins=yes \
+                --verbose --log-file=$(DBUGRUN_LOGNAME) \
+                --trace-children=yes --track-fds=yes
 
 all:	$(NAME)
 
-$(NAME):	$(OBJS)
-	@$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
+$(NAME): $(OBJ)
+	$(MAKE) -C lib/my
+	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 clean:
-	@$(RM) $(OBJS)
+		$(MAKE) clean -C lib/my
+		$(RM) -f $(OBJ)
+		$(RM) -f $(NAME)
 
 fclean:	clean
-	@$(RM) $(NAME)
+		$(MAKE) fclean -C lib/my
 
-re:	fclean all
+re: fclean all
 
-litle: all clean
+debug: CFLAGS += $(DEBUGFLAGS)
+debug: $(OBJ)
+	$(MAKE) -C lib/my
+	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS) $(DEBUGFLAGS)
+
+debug_re: fclean debug
+
+debug_run: debug_re
+	valgrind $(DBUGRUN_FLAGS) ./$(NAME)
+	cat $(DBBUGRUN_LOGNAME)
+	echo $$(cat $(DBBUGRUN_LOGNAME))
+	$(RM) $(DBBUGRUN_LOGNAME)
