@@ -20,7 +20,7 @@ CPPFLAGS	=  -I./includes
 all:	$(NAME)
 
 $(NAME):	$(OBJS)
-	@$(CC) $(NAME) $(OBJS) $(LDFLAGS)
+	@$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
 	@$(RM) $(OBJS)
