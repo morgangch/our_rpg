@@ -20,13 +20,14 @@ CPPFLAGS	=  -I./includes
 all:	$(NAME)
 
 $(NAME):	$(OBJS)
-	gcc -o $(NAME) $(OBJS) $(LDFLAGS)
+	@$(CC) $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
-	rm -f $(OBJS)
+	@$(RM) $(OBJS)
 
 fclean:	clean
-	rm -f $(NAME)
+	@$(RM) $(NAME)
 
 re:	fclean all
-	rm -f $(OBJS)
+
+litle: all clean
