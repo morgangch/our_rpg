@@ -6,7 +6,7 @@
 */
 
 #include <limits.h>
-#include "../../include/my.h"
+#include "my.h"
 
 void car_checker(char c, int *sign, int *sign2, int *mark)
 {

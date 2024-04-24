@@ -5,7 +5,21 @@
 ** Main
 */
 
-#include "../../include/my.h"
+#include "my.h"
+
+int char_checker2(va_list ap, char c)
+{
+    switch (c) {
+    case 'c':
+        my_putchar((char) va_arg(ap, int));
+        return 0;
+    case '%':
+        my_putchar('%');
+        return 0;
+    default:
+        return 1;
+    }
+}
 
 int char_checker(va_list ap, char c)
 {
@@ -24,26 +38,6 @@ int char_checker(va_list ap, char c)
         return 0;
     default:
         return char_checker2(ap, c);
-    }
-}
-
-int char_checker2(va_list ap, char c)
-{
-    unsigned int i = 0;
-
-    switch (c) {
-    case 'c':
-        my_putchar((char) va_arg(ap, int));
-        return 0;
-    case '%':
-        my_putchar('%');
-        return 0;
-    default:
-        return 1;
-    case 'u':
-        i = va_arg(ap, unsigned long int);
-        my_unsigned_nbr(i);
-        return 0;
     }
 }
 

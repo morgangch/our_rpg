@@ -6,9 +6,7 @@
 */
 
 #include <unistd.h>
-#include "../../include/my.h"
-#include <limits.h>
-#include <stdio.h>
+#include "my.h"
 
 long int put_my_nbr(long int nb)
 {

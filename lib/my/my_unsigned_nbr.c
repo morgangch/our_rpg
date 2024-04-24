@@ -5,10 +5,7 @@
 ** Nbr unsigned for print
 */
 
-#include <unistd.h>
-#include "../../include/my.h"
-#include <limits.h>
-#include <stdio.h>
+#include "my.h"
 
 int unsigned_my_nbr(unsigned long int nb)
 {

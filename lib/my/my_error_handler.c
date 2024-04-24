@@ -5,7 +5,7 @@
 ** tool to handle the error codes
 */
 
-#include "../../include/my.h"
+#include "my.h"
 
 int my_error_handler(int code)
 {
