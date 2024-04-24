@@ -4,7 +4,7 @@
 ** File description:
 ** other file for subsidiary funcs for bsmyhunter
 */
-#include "include/my.h"
+#include "my.h"
 
 void close_window(config_t *config)
 {

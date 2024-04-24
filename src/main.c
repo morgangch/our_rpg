@@ -4,7 +4,7 @@
 ** File description:
 ** tests and bootstrap for myhunter
 */
-#include "include/my.h"
+#include "my.h"
 
 void move_rect(sprite_t *sprite)
 {

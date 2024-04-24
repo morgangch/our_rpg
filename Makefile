@@ -5,22 +5,21 @@
 ## Makefile myprintf
 ##
 
-NAME	=	myhunter
+NAME	=	myrpg
 
-SRCS =	main.c	\
-		altfuncs.c \
-		get_score.c \
-		check_collisions.c \
-		inits.c \
-		frees_destructs.c \
-		analysefuncs.c \
-		altfuncs2.c
-
+SRCS =	src/main.c	\
+		src/altfuncs.c \
+		src/get_score.c \
+		src/check_collisions.c \
+		src/inits.c \
+		src/frees_destructs.c \
+		src/analysefuncs.c \
+		src/altfuncs2.c \
 
 OBJ = $(SRCS:.c=.o)
 
 CFLAGS = -W -Wall -Wno-unused-parameter -Wextra
-CPPFLAGS = -Iinclude/
+CPPFLAGS = -Iincludes
 LDFLAGS =  	-lcsfml-graphics -lcsfml-window -lcsfml-system \
 			-lcsfml-audio -Llib/my -lmy
 DBUGFLAGS = -g3
@@ -37,10 +36,10 @@ $(NAME): $(OBJ)
 
 clean:
 		$(MAKE) clean -C lib/my
-		$(RM) -f $(OBJ)
 		$(RM) -f $(NAME)
 
 fclean:	clean
+		$(RM) -f $(OBJ)
 		$(MAKE) fclean -C lib/my
 
 re: fclean all
