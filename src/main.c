@@ -89,7 +89,7 @@ static void main_loop(config_t *config)
     }
 }
 
-static void menu_loop(config_t *config)
+static void menu_loop(config_t *config, sprite_t *sprite)
 {
     sfVector2f mousePosition;
 
@@ -97,7 +97,7 @@ static void menu_loop(config_t *config)
         analyse_events(config);
         sfRenderWindow_clear(config->window, sfBlack);
         sfRenderWindow_drawSprite(config->window,
-        config->bsprites->menu_sprite->sprite, NULL);
+        sprite->sprite, NULL);
         mass_set_text_m(config);
         mousePosition = (sfVector2f){sfMouse_getPositionRenderWindow(
         config->window).x, sfMouse_getPositionRenderWindow(config->window).y};
@@ -114,6 +114,11 @@ static void menu_loop(config_t *config)
 
 void to_game(config_t *config)
 {
+    return;
+}
+
+/*void to_game(config_t *config)
+{
     sfRenderWindow_setMouseCursorVisible(config->window, sfFalse);
     sfMusic_stop(config->sounds->menu_theme);
     sfMusic_play(config->sounds->main_theme);
@@ -126,23 +131,24 @@ void to_game(config_t *config)
     sfRenderWindow_display(config->window);
     config->is_menu = 0;
     main_loop(config);
-}
-
-void to_menu(config_t *config)
+}*/
+void to_menu(config_t *config, int pause)
 {
+    sprite_t *sprite = pause == 0 ? config->bsprites->menu_sprite :
+    config->bsprites->pausemenu_sprite;
+
     sfRenderWindow_setMouseCursorVisible(config->window, sfTrue);
+    sfRenderWindow_drawSprite(config->window,
+    config->mouse_cursor->sprite, NULL);
     sfSound_play(config->sounds->losing_sound);
     sfMusic_stop(config->sounds->main_theme);
     sfMusic_play(config->sounds->menu_theme);
     sfMusic_setVolume(config->sounds->menu_theme, 60);
     sfMusic_setLoop(config->sounds->menu_theme, sfTrue);
-    sfRenderWindow_drawSprite(config->window,
-        config->bsprites->menu_sprite->sprite, NULL);
-    sfRenderWindow_drawSprite(config->window,
-    config->mouse_cursor->sprite, NULL);
+    sfRenderWindow_drawSprite(config->window, sprite->sprite, NULL);
     sfRenderWindow_display(config->window);
     config->is_menu = 1;
-    menu_loop(config);
+    menu_loop(config, sprite);
 }
 
 int main(int ac, char **av)
@@ -150,13 +156,13 @@ int main(int ac, char **av)
     config_t *config;
 
     if (ac == 2 && (my_strcmp(av[1], "-h") == 0))
-        return my_printf("USAGE\n\t./my_hunter\n\nDESCRIPTION\n\t\
-    A game where you have to shoot american ships...\n\t\
-    With kamikaze japanese planes.\n");
-    config = create_config(1920, 1080, 32);
+        return my_printf("USAGE\n\t./my_rpg\n\nDESCRIPTION\n\t\
+    My RPG project prototype...\n\t\
+    For now it should include a working menu.\n");
+    config = create_config();
     setup_game(config);
     if (!(config->window))
         return 1;
-    to_menu(config);
+    to_menu(config, 0);
     return 0;
 }

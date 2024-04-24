@@ -68,25 +68,25 @@ void move_sprite(config_t *config, sprite_t *sprite, int value_y)
     sfSprite_setPosition(sprite->sprite, sprite->pos);
 }
 
-enemies_t *generate_x_entities_with_sprite(int x, int time)
+enemies_t *generate_x_entities_with_sprite(int x, int time, sfVideoMode mode)
 {
     enemies_t *enemies = malloc(sizeof(enemies_t));
 
     enemies->enemy1 = create_sprite("assets/aircraftcarrier.png",
     (sfIntRect){0, 0, 400, 150}, (offset_maxvalue_t){400, 2800},
-    (sfVector2f){-100, 900});
+    adapt_position((sfVector2f){0, 800}, mode));
     enemies->enemy2 = create_sprite("assets/aircraftcarrier.png",
     (sfIntRect){0, 0, 400, 150}, (offset_maxvalue_t){400, 2800},
-    (sfVector2f){0 - (rand() % 350), 800});
+    adapt_position((sfVector2f){rand() % 100, 800}, mode));
     enemies->enemy3 = create_sprite("assets/aircraftcarrier.png",
     (sfIntRect){0, 0, 400, 150}, (offset_maxvalue_t){400, 2800},
-    (sfVector2f){0 - (rand() % 400), 800});
+    adapt_position((sfVector2f){rand() % 200, 800}, mode));
     enemies->enemy4 = create_sprite("assets/aircraftcarrier.png",
     (sfIntRect){0, 0, 400, 150}, (offset_maxvalue_t){400, 2800},
-    (sfVector2f){0 - (rand() % 450), 800});
+    adapt_position((sfVector2f){rand() % 300, 800}, mode));
     enemies->enemy5 = create_sprite("assets/aircraftcarrier.png",
     (sfIntRect){0, 0, 400, 150}, (offset_maxvalue_t){400, 2800},
-    (sfVector2f){0 - (rand() % 500), 800});
+    adapt_position((sfVector2f){rand() % 400, 800}, mode));
     enemies->base_speed = 1;
     return enemies;
 }

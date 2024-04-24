@@ -52,7 +52,7 @@ static void on_key_press(config_t *config)
         return;
     switch ((config)->event->key.code) {
         case sfKeyEscape:
-            to_menu(config);
+            to_menu(config, 1);
             break;
         case sfKeyM:
             config->sounds->MainThemeIsPlaying =
