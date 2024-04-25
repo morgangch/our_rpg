@@ -54,17 +54,17 @@ OBJS	=	$(SRCS:.c=.o)
 all:	$(NAME)
 
 $(NAME):	$(OBJS)
-	ar rc $(NAME) $(OBJS)
-	cp $(NAME) ../
+	@ar rc $(NAME) $(OBJS)
+	@cp $(NAME) ../
 
 clean:
-	$(RM) -f $(OBJS)
-	$(RM) -f *~
-	$(RM) -f *.gcno
-	$(RM) -f *.gcda
+	@$(RM) $(OBJS)
+	@$(RM) *~
+	@$(RM) *.gcno
+	@$(RM) *.gcda
 
 fclean: clean
-	$(RM) -f $(NAME)
-	$(RM) -f ../$(NAME)
+	@$(RM) $(NAME)
+	@$(RM) ../$(NAME)
 
 re:	fclean all

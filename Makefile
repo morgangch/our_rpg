@@ -32,28 +32,28 @@ DBUGRUN_FLAGS = --leak-check=yes --show-leak-kinds=all --track-origins=yes \
 all:	$(NAME)
 
 $(NAME): $(OBJ)
-	$(MAKE) -C lib/my
-	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
+	@$(MAKE) -C lib/my
+	@$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 clean:
-		$(MAKE) clean -C lib/my
-		$(RM) -f $(NAME)
+	@$(MAKE) clean -C lib/my
+	@$(RM) -f $(NAME)
 
 fclean:	clean
-		$(RM) -f $(OBJ)
-		$(MAKE) fclean -C lib/my
+	@$(RM) -f $(OBJ)
+	@$(MAKE) fclean -C lib/my
 
 re: fclean all
 
 debug: CFLAGS += $(DEBUGFLAGS)
 debug: $(OBJ)
-	$(MAKE) -C lib/my
-	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS) $(DEBUGFLAGS)
+	@$(MAKE) -C lib/my
+	@$(CC) -o $(NAME) $(OBJ) $(LDFLAGS) $(DEBUGFLAGS)
 
 debug_re: fclean debug
 
 debug_run: debug_re
-	valgrind $(DBUGRUN_FLAGS) ./$(NAME)
-	cat $(DBBUGRUN_LOGNAME)
-	echo $$(cat $(DBBUGRUN_LOGNAME))
-	$(RM) $(DBBUGRUN_LOGNAME)
+	@valgrind $(DBUGRUN_FLAGS) ./$(NAME)
+	@cat $(DBBUGRUN_LOGNAME)
+	@echo $$(cat $(DBBUGRUN_LOGNAME))
+	@$(RM) $(DBBUGRUN_LOGNAME)
