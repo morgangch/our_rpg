@@ -165,3 +165,5 @@ char my_charupcase(char c);
 char my_charlowcase(char c);
 int my_is_prime(int nb);
 sfVector2f adapt_position(sfVector2f initial_pos, sfVideoMode mode);
+int *get_shortest_path(sfVector2i start, sfVector2i end,
+    int **map, int max_range);

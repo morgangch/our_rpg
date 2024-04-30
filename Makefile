@@ -15,7 +15,8 @@ SRCS =	src/main.c	\
 		src/frees_destructs.c \
 		src/analysefuncs.c \
 		src/altfuncs2.c \
-		src/window_handling.c
+		src/window_handling.c \
+		src/get_shortest_path.c \
 
 OBJ = $(SRCS:.c=.o)
 
