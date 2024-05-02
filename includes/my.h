@@ -25,6 +25,17 @@
 static const char *const error_codes[] = {"None",
     "Wrong parameter", "Unknown error"};
 
+typedef struct map_info_s {
+    int **map;
+    sfVector2i size;
+    int max_range;
+} map_info_t;
+
+typedef struct mouvement_s {
+    int direction;
+    struct mouvement_s *next;
+} mouvement_t;
+
 typedef struct sprite_s {
     sfSprite *sprite;
     sfTexture *texture;
@@ -165,5 +176,5 @@ char my_charupcase(char c);
 char my_charlowcase(char c);
 int my_is_prime(int nb);
 sfVector2f adapt_position(sfVector2f initial_pos, sfVideoMode mode);
-int *get_shortest_path(sfVector2i start, sfVector2i end,
+mouvement_t *get_shortest_path(sfVector2i start, sfVector2i end,
     int **map, int max_range);
