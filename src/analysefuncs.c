@@ -9,7 +9,7 @@
 
 static int check_menu_click2(config_t *config)
 {
-    if (config->buttons->cheat_button->isMouseOver &&
+    if (config->buttons->new_button->isMouseOver &&
     config->event->type == sfEvtMouseButtonPressed &&
     config->event->mouseButton.button == sfMouseLeft)
         return 3;
@@ -18,7 +18,7 @@ static int check_menu_click2(config_t *config)
 
 int check_menu_click(config_t *config)
 {
-    if (config->buttons->start_button->isMouseOver &&
+    if (config->buttons->load_button->isMouseOver &&
     config->event->type == sfEvtMouseButtonPressed &&
     config->event->mouseButton.button == sfMouseLeft)
         return 1;

@@ -45,17 +45,21 @@ static void mass_set_text_g(config_t *config)
 static void mass_set_text_m(config_t *config)
 {
     sfRenderWindow_drawRectangleShape(config->window,
-    config->buttons->start_button->shape, NULL);
+    config->buttons->load_button->shape, NULL);
     sfRenderWindow_drawRectangleShape(config->window,
     config->buttons->quit_button->shape, NULL);
     sfRenderWindow_drawRectangleShape(config->window,
-    config->buttons->cheat_button->shape, NULL);
+    config->buttons->new_button->shape, NULL);
+    sfRenderWindow_drawRectangleShape(config->window,
+    config->buttons->settings_button->shape, NULL);
     sfRenderWindow_drawText(config->window,
-    config->buttons->start_button->text, NULL);
+    config->buttons->load_button->text, NULL);
     sfRenderWindow_drawText(config->window,
     config->buttons->quit_button->text, NULL);
     sfRenderWindow_drawText(config->window,
-    config->buttons->cheat_button->text, NULL);
+    config->buttons->new_button->text, NULL);
+    sfRenderWindow_drawText(config->window,
+    config->buttons->settings_button->text, NULL);
 }
 
 static void clock_time_get(config_t *config)
@@ -101,9 +105,10 @@ static void menu_loop(config_t *config, sprite_t *sprite)
         mass_set_text_m(config);
         mousePosition = (sfVector2f){sfMouse_getPositionRenderWindow(
         config->window).x, sfMouse_getPositionRenderWindow(config->window).y};
-        update_button(config->buttons->start_button, mousePosition);
+        update_button(config->buttons->load_button, mousePosition);
         update_button(config->buttons->quit_button, mousePosition);
-        update_button(config->buttons->cheat_button, mousePosition);
+        update_button(config->buttons->new_button, mousePosition);
+        update_button(config->buttons->settings_button, mousePosition);
         sfRenderWindow_display(config->window);
     }
     if (config->is_menu == 0 && config->game->life != 0

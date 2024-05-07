@@ -98,7 +98,10 @@ typedef struct back_sprites_s {
 } back_sprites_t;
 
 typedef struct buttons_s {
-    button_t *start_button;
+    button_t *save_button;
+    button_t *load_button;
+    button_t *new_button;
+    button_t *settings_button;
     button_t *quit_button;
     button_t *cheat_button;
 } buttons_t;

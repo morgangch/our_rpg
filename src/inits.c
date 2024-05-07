@@ -65,15 +65,18 @@ buttons_t *create_buttons(sfVideoMode mode)
 {
     buttons_t *buttons_toreturn = malloc(sizeof(buttons_t));
 
-    buttons_toreturn->start_button = malloc(sizeof(button_t));
+    buttons_toreturn->load_button = malloc(sizeof(button_t));
     buttons_toreturn->quit_button = malloc(sizeof(button_t));
-    buttons_toreturn->cheat_button = malloc(sizeof(button_t));
-    initialize_button(buttons_toreturn->start_button, "Start",
+    buttons_toreturn->new_button = malloc(sizeof(button_t));
+    buttons_toreturn->settings_button = malloc(sizeof(button_t));
+    initialize_button(buttons_toreturn->load_button, "Load Game",
     adapt_position((sfVector2f){950, 510}, mode), (sfVector2f){120, 60});
-    initialize_button(buttons_toreturn->cheat_button, "Cheat",
+    initialize_button(buttons_toreturn->new_button, "New Game",
     adapt_position((sfVector2f){950, 610}, mode), (sfVector2f){120, 60});
-    initialize_button(buttons_toreturn->quit_button, "Quit",
+    initialize_button(buttons_toreturn->settings_button, "Settings",
     adapt_position((sfVector2f){950, 710}, mode), (sfVector2f){120, 60});
+    initialize_button(buttons_toreturn->quit_button, "Quit",
+    adapt_position((sfVector2f){950, 810}, mode), (sfVector2f){120, 60});
     return buttons_toreturn;
 }
 

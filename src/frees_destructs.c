@@ -44,15 +44,18 @@ static void destroy_texts(texts_t *texts)
 
 static void destroy_buttons(buttons_t *buttons)
 {
-    sfRectangleShape_destroy(buttons->start_button->shape);
+    sfRectangleShape_destroy(buttons->load_button->shape);
     sfRectangleShape_destroy(buttons->quit_button->shape);
-    sfRectangleShape_destroy(buttons->cheat_button->shape);
-    sfText_destroy(buttons->start_button->text);
+    sfRectangleShape_destroy(buttons->new_button->shape);
+    sfRectangleShape_destroy(buttons->settings_button->shape);
+    sfText_destroy(buttons->load_button->text);
     sfText_destroy(buttons->quit_button->text);
-    sfText_destroy(buttons->cheat_button->text);
-    free(buttons->start_button);
+    sfText_destroy(buttons->new_button->text);
+    sfText_destroy(buttons->settings_button->text);
+    free(buttons->load_button);
     free(buttons->quit_button);
-    free(buttons->cheat_button);
+    free(buttons->new_button);
+    free(buttons->settings_button);
     free(buttons);
 }
 
