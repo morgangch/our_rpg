@@ -65,7 +65,7 @@ void basic_checks(config_t *config)
     if (config->game->life == 0)
         game_over(config);
     if (config->is_menu == 1)
-        to_menu(config, 1);
+        to_p_menu(config);
 }
 
 static void reset_game(config_t *config)
@@ -95,7 +95,7 @@ void game_over(config_t *config)
     reset_game(config);
     while (sfRenderWindow_isOpen(config->window)) {
         if (sfClock_getElapsedTime(clock).microseconds > 5000) {
-            to_menu(config, 0);
+            to_m_menu(config);
             break;
         }
     }

@@ -42,20 +42,24 @@ static void destroy_texts(texts_t *texts)
     free(texts);
 }
 
+static void destroy_button(button_t *button)
+{
+    if (button == NULL)
+        return;
+    sfRectangleShape_destroy(button->shape);
+    sfText_destroy(button->text);
+    free(button);
+}
+
 static void destroy_buttons(buttons_t *buttons)
 {
-    sfRectangleShape_destroy(buttons->load_button->shape);
-    sfRectangleShape_destroy(buttons->quit_button->shape);
-    sfRectangleShape_destroy(buttons->new_button->shape);
-    sfRectangleShape_destroy(buttons->settings_button->shape);
-    sfText_destroy(buttons->load_button->text);
-    sfText_destroy(buttons->quit_button->text);
-    sfText_destroy(buttons->new_button->text);
-    sfText_destroy(buttons->settings_button->text);
-    free(buttons->load_button);
-    free(buttons->quit_button);
-    free(buttons->new_button);
-    free(buttons->settings_button);
+    destroy_button(buttons->save_button);
+    destroy_button(buttons->load_button);
+    destroy_button(buttons->new_button);
+    destroy_button(buttons->settings_button);
+    destroy_button(buttons->quit_button);
+    destroy_button(buttons->cheat_button);
+    destroy_button(buttons->resume_button);
     free(buttons);
 }
 
@@ -91,7 +95,8 @@ void destroy_config(config_t *config)
     destroy_enemies(config->enemies);
     destroy_bsprites(config->bsprites);
     destroy_texts(config->texts);
-    destroy_buttons(config->buttons);
+    destroy_buttons(config->pause_menu_buttons);
+    destroy_buttons(config->main_menu_buttons);
     destroy_sounds(config->sounds);
     destroy_game(config->game);
     destroy_mouse_cursor(config->mouse_cursor);

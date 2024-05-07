@@ -42,24 +42,23 @@ static void mass_set_text_g(config_t *config)
     config->texts->highscore_text, NULL);
 }
 
-static void mass_set_text_m(config_t *config)
+static void set_text_m(config_t *config, button_t *button)
 {
-    sfRenderWindow_drawRectangleShape(config->window,
-    config->buttons->load_button->shape, NULL);
-    sfRenderWindow_drawRectangleShape(config->window,
-    config->buttons->quit_button->shape, NULL);
-    sfRenderWindow_drawRectangleShape(config->window,
-    config->buttons->new_button->shape, NULL);
-    sfRenderWindow_drawRectangleShape(config->window,
-    config->buttons->settings_button->shape, NULL);
-    sfRenderWindow_drawText(config->window,
-    config->buttons->load_button->text, NULL);
-    sfRenderWindow_drawText(config->window,
-    config->buttons->quit_button->text, NULL);
-    sfRenderWindow_drawText(config->window,
-    config->buttons->new_button->text, NULL);
-    sfRenderWindow_drawText(config->window,
-    config->buttons->settings_button->text, NULL);
+    if (button == NULL)
+        return;
+    sfRenderWindow_drawRectangleShape(config->window, button->shape, NULL);
+    sfRenderWindow_drawText(config->window, button->text, NULL);
+}
+
+void mass_set_text_m(config_t *config, buttons_t *buttons)
+{
+    set_text_m(config, buttons->save_button);
+    set_text_m(config, buttons->load_button);
+    set_text_m(config, buttons->new_button);
+    set_text_m(config, buttons->settings_button);
+    set_text_m(config, buttons->quit_button);
+    set_text_m(config, buttons->resume_button);
+    set_text_m(config, buttons->cheat_button);
 }
 
 static void clock_time_get(config_t *config)
@@ -75,7 +74,7 @@ static void main_loop(config_t *config)
 
     while (sfRenderWindow_isOpen(config->window) &&
     config->game->life != 0 && config->is_menu == 0) {
-        analyse_events(config);
+        analyse_events(config, 0);
         sfRenderWindow_clear(config->window, sfBlack);
         sfRenderWindow_drawSprite(config->window,
             config->bsprites->background_sprite->sprite, NULL);
@@ -91,30 +90,6 @@ static void main_loop(config_t *config)
         clock_time_get(config);
         basic_checks(config);
     }
-}
-
-static void menu_loop(config_t *config, sprite_t *sprite)
-{
-    sfVector2f mousePosition;
-
-    while (config->is_menu == 1 && sfRenderWindow_isOpen(config->window)) {
-        analyse_events(config);
-        sfRenderWindow_clear(config->window, sfBlack);
-        sfRenderWindow_drawSprite(config->window,
-        sprite->sprite, NULL);
-        mass_set_text_m(config);
-        mousePosition = (sfVector2f){sfMouse_getPositionRenderWindow(
-        config->window).x, sfMouse_getPositionRenderWindow(config->window).y};
-        update_button(config->buttons->load_button, mousePosition);
-        update_button(config->buttons->quit_button, mousePosition);
-        update_button(config->buttons->new_button, mousePosition);
-        update_button(config->buttons->settings_button, mousePosition);
-        sfRenderWindow_display(config->window);
-    }
-    if (config->is_menu == 0 && config->game->life != 0
-    && sfRenderWindow_isOpen(config->window))
-        to_game(config);
-    return;
 }
 
 void to_game(config_t *config)
@@ -137,25 +112,6 @@ void to_game(config_t *config)
     config->is_menu = 0;
     main_loop(config);
 }*/
-void to_menu(config_t *config, int pause)
-{
-    sprite_t *sprite = pause == 0 ? config->bsprites->menu_sprite :
-    config->bsprites->pausemenu_sprite;
-
-    sfRenderWindow_setMouseCursorVisible(config->window, sfTrue);
-    sfRenderWindow_drawSprite(config->window,
-    config->mouse_cursor->sprite, NULL);
-    sfSound_play(config->sounds->losing_sound);
-    sfMusic_stop(config->sounds->main_theme);
-    sfMusic_play(config->sounds->menu_theme);
-    sfMusic_setVolume(config->sounds->menu_theme, 60);
-    sfMusic_setLoop(config->sounds->menu_theme, sfTrue);
-    sfRenderWindow_drawSprite(config->window, sprite->sprite, NULL);
-    sfRenderWindow_display(config->window);
-    config->is_menu = 1;
-    menu_loop(config, sprite);
-}
-
 int main(int ac, char **av)
 {
     config_t *config;
@@ -168,6 +124,6 @@ int main(int ac, char **av)
     setup_game(config);
     if (!(config->window))
         return 1;
-    to_menu(config, 0);
+    to_m_menu(config);
     return 0;
 }

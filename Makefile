@@ -7,16 +7,30 @@
 
 NAME	=	myrpg
 
-SRCS =	src/main.c	\
-		src/altfuncs.c \
-		src/get_score.c \
-		src/check_collisions.c \
-		src/inits.c \
-		src/frees_destructs.c \
+SRCS =	src/frees_destructs.c \
 		src/analysefuncs.c \
+		src/altfuncs.c \
 		src/altfuncs2.c \
 		src/window_handling.c \
 		src/get_shortest_path.c \
+		src/check_collisions.c \
+		src/main.c \
+		src/get_score.c \
+		src/inits.c \
+		src/menus/m_menu_window.c \
+		src/menus/p_menu_window.c \
+		src/utils/buttons.c \
+		src/settings/settings_menu.c \
+		src/save_handling/new_game.c \
+		src/save_handling/save_load.c \
+		src/save_handling/save_make.c \
+		##src/dialogs/*.c \
+		##src/fights/*.c \
+		##src/map_handling/*.c \
+		##src/movements/*.c \
+		##src/quests/*.c \
+		##src/save_handling/*.c \
+		##src/settings/*.c \
 
 OBJ = $(SRCS:.c=.o)
 

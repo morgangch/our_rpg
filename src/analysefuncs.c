@@ -7,52 +7,13 @@
 
 #include "my.h"
 
-static int check_menu_click2(config_t *config)
-{
-    if (config->buttons->new_button->isMouseOver &&
-    config->event->type == sfEvtMouseButtonPressed &&
-    config->event->mouseButton.button == sfMouseLeft)
-        return 3;
-    return 0;
-}
-
-int check_menu_click(config_t *config)
-{
-    if (config->buttons->load_button->isMouseOver &&
-    config->event->type == sfEvtMouseButtonPressed &&
-    config->event->mouseButton.button == sfMouseLeft)
-        return 1;
-    if (config->buttons->quit_button->isMouseOver &&
-    config->event->type == sfEvtMouseButtonPressed &&
-    config->event->mouseButton.button == sfMouseLeft)
-        return 2;
-    return check_menu_click2(config);
-}
-
-static void analyse_menu2(config_t *config)
-{
-    switch (check_menu_click(config)) {
-        case 1:
-            to_game(config);
-            break;
-        case 2:
-            sfRenderWindow_close(config->window);
-            break;
-        case 3:
-            config->game->life = -1;
-            break;
-        default:
-            break;
-    }
-}
-
-static void on_key_press(config_t *config)
+void on_key_press(config_t *config)
 {
     if ((config)->event->type != sfEvtKeyPressed)
         return;
     switch ((config)->event->key.code) {
         case sfKeyEscape:
-            to_menu(config, 1);
+            to_p_menu(config);
             break;
         case sfKeyM:
             config->sounds->MainThemeIsPlaying =
@@ -67,13 +28,15 @@ static void on_key_press(config_t *config)
     }
 }
 
-void analyse_menu(config_t *config)
+void analyse_menu(config_t *config, int menu)
 {
     while (sfRenderWindow_pollEvent(config->window, config->event)) {
         if ((config)->event->type == sfEvtClosed)
             close_window(config);
-        if ((config)->event->type == sfEvtMouseButtonPressed)
-            analyse_menu2(config);
+        if (menu == 1)
+            analyse_m_menu(config);
+        if (menu == 2)
+            analyse_p_menu(config);
         on_key_press(config);
     }
 }
@@ -114,12 +77,13 @@ void analyse_game(config_t *config)
     }
 }
 
-void analyse_events(config_t *config)
+void analyse_events(config_t *config, int menu)
 {
-    if (config->is_menu == 0)
+    if (menu == 0) {
         analyse_game(config);
-    else
-        analyse_menu(config);
+        return;
+    }
+    analyse_menu(config, menu);
 }
 
 void manage_mouse_click(config_t *config)
