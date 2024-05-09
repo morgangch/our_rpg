@@ -7,7 +7,20 @@
 
 #pragma once
 
-#include "my.h"
+#include <SFML/Audio.h>
+#include <SFML/Config.h>
+#include <SFML/Graphics.h>
+#include <SFML/Network.h>
+#include <SFML/System.h>
+#include <SFML/Window.h>
+#include <fcntl.h>
+#include <stdarg.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 typedef struct character_s {
     int current_hp;
