@@ -22,7 +22,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-typedef struct enemies_s {
+typedef struct enemy_s {
     int current_hp;
     int max_hp;
     int defense;
@@ -32,7 +32,7 @@ typedef struct enemies_s {
     int *drops;
     int *drops_chance;
     int *drops_nb;
-} enemies_t;
+} enemy_t;
 
 typedef struct character_s {
     char *name;
@@ -83,6 +83,15 @@ typedef struct offset_maxvalue_s {
     int offset;
     int max_value;
 } offset_maxvalue_t;
+
+typedef struct enemies_s {
+    sprite_t *enemy1;
+    sprite_t *enemy2;
+    sprite_t *enemy3;
+    sprite_t *enemy4;
+    sprite_t *enemy5;
+    int base_speed;
+} enemies_t;
 
 typedef struct button_s {
     sfRectangleShape *shape;

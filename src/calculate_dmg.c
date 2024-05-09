@@ -8,7 +8,7 @@
 #include "my.h"
 #include "structures.h"
 
-int calculate_dmg(character_t *player, enemies_t *ennemy)
+int calculate_dmg(character_t *player, enemy_t *ennemy)
 {
     player = player;
     ennemy = ennemy;
