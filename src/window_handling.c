@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "structures.h"
 
 sfVector2f adapt_position(sfVector2f initial_pos, sfVideoMode mode)
 {

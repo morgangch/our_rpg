@@ -4,7 +4,9 @@
 ** File description:
 ** inits
 */
+
 #include "my.h"
+#include "structures.h"
 
 sounds_t *create_sounds(void)
 {

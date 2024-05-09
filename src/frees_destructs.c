@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "structures.h"
 
 static void destroy_enemies(enemies_t *enemies)
 {

@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "structures.h"
 
 static int get_len_map(int **map)
 {

@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "structures.h"
 
 sprite_t *create_sprite(char *fp, sfIntRect rect,
     offset_maxvalue_t offset_maxvalue_v, sfVector2f pos)

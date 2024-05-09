@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "structures.h"
 
 void on_key_press(config_t *config)
 {

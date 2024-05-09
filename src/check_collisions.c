@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "structures.h"
 
 int check_collision1(config_t *config)
 {
