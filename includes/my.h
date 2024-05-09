@@ -72,3 +72,5 @@ void analyse_m_menu(config_t *config);
 void update_buttons(buttons_t *buttons, sfVector2f mousePosition, int menu);
 buttons_t *create_buttons(sfVideoMode mode, int pause);
 character_t *create_character(int hp, int mp);
+void take_dmg_p(character_t *player, int dmg);
+int take_dmg_e(character_t *ennemy, int dmg);

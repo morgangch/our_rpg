@@ -22,15 +22,34 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+typedef struct enemies_s {
+    int current_hp;
+    int max_hp;
+    int defense;
+    int attack;
+    int xp;
+    int gold;
+    int *drops;
+    int *drops_chance;
+    int *drops_nb;
+} enemies_t;
+
 typedef struct character_s {
+    char *name;
+    int level;
+    int strength;
+    int intelligence;
+    int agility;
+    int luck;
     int current_hp;
     int max_hp;
     int current_mp;
     int max_mp;
-    int id_current_weapon;
-    int id_current_armor;
-    int id_current_accessory;
-    int id_current_shield;
+    int xp;
+    int xp_max;
+    int gold;
+    int armor;
+    int weapon;
 } character_t;
 
 typedef struct map_info_s {
@@ -64,15 +83,6 @@ typedef struct offset_maxvalue_s {
     int offset;
     int max_value;
 } offset_maxvalue_t;
-
-typedef struct enemies_s {
-    sprite_t *enemy1;
-    sprite_t *enemy2;
-    sprite_t *enemy3;
-    sprite_t *enemy4;
-    sprite_t *enemy5;
-    int base_speed;
-} enemies_t;
 
 typedef struct button_s {
     sfRectangleShape *shape;

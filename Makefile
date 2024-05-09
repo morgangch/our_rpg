@@ -25,6 +25,7 @@ SRCS =	src/frees_destructs.c \
 		src/save_handling/save_load.c \
 		src/save_handling/save_make.c \
 		src/create_character.c \
+		src/take_dmg.c \
 		##src/dialogs/*.c \
 		##src/fights/*.c \
 		##src/map_handling/*.c \
