@@ -72,3 +72,4 @@ void analyse_m_menu(config_t *config);
 void update_buttons(buttons_t *buttons, sfVector2f mousePosition, int menu);
 buttons_t *create_buttons(sfVideoMode mode, int pause);
 character_t *create_character(int hp, int mp);
+char *my_strcat(char *dest, char const *src);

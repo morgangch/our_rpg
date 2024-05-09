@@ -139,3 +139,8 @@ typedef struct config_s {
     back_sprites_t *bsprites;
     texts_t *texts;
 } config_t;
+
+typedef struct map_s {
+    char *name;
+    map_info_t *map_info;
+} map_t;
