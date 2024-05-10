@@ -15,35 +15,6 @@ void move_rect(sprite_t *sprite)
         sprite->rect.left = 0;
 }
 
-void move_enemies(config_t *config)
-{
-    move_sprite(config, config->enemies->enemy1, 0);
-    move_sprite(config, config->enemies->enemy2, 0);
-    move_sprite(config, config->enemies->enemy3, 0);
-    move_sprite(config, config->enemies->enemy4, 0);
-    move_sprite(config, config->enemies->enemy5, 0);
-}
-
-static void mass_set_text_g(config_t *config)
-{
-    sfText_setString(config->texts->score_text,
-    my_itoa(config->game->score));
-    sfText_setString(config->texts->life_text,
-    my_itoa(config->game->life));
-    sfText_setString(config->texts->level_text,
-    my_itoa(config->game->level));
-    sfText_setString(config->texts->highscore_text,
-    my_itoa(config->game->highscore));
-    sfRenderWindow_drawText(config->window,
-    config->texts->score_text, NULL);
-    sfRenderWindow_drawText(config->window,
-    config->texts->life_text, NULL);
-    sfRenderWindow_drawText(config->window,
-    config->texts->level_text, NULL);
-    sfRenderWindow_drawText(config->window,
-    config->texts->highscore_text, NULL);
-}
-
 static void set_text_m(config_t *config, button_t *button)
 {
     if (button == NULL)
@@ -65,8 +36,7 @@ void mass_set_text_m(config_t *config, buttons_t *buttons)
 
 static void clock_time_get(config_t *config)
 {
-    config->delta_time =
-    sfClock_getElapsedTime(config->clock).microseconds;
+    config->delta_time = sfClock_getElapsedTime(config->clock).microseconds;
     sfClock_restart(config->clock);
 }
 
@@ -74,20 +44,14 @@ static void main_loop(config_t *config)
 {
     float anim_delta_time = 0.0;
 
-    while (sfRenderWindow_isOpen(config->window) &&
-    config->game->life != 0 && config->is_menu == 0) {
+    while (sfRenderWindow_isOpen(config->window) && config->game->life != 0
+        && config->is_menu == 0) {
         analyse_events(config, 0);
         sfRenderWindow_clear(config->window, sfBlack);
-        sfRenderWindow_drawSprite(config->window,
-            config->bsprites->background_sprite->sprite, NULL);
-        move_enemies(config);
-        if (anim_delta_time > 50000) {
-            animate_enemies(config);
-            anim_delta_time = 0.0;
-        } else
-            anim_delta_time += config->delta_time;
-        draw_sprites(config);
-        mass_set_text_g(config);
+        sfRenderWindow_drawSprite(
+            config->window, config->active_map->map, NULL);
+        sfRenderWindow_drawSprite(
+            config->window, config->player->sprite->sprite, NULL);
         sfRenderWindow_display(config->window);
         clock_time_get(config);
         basic_checks(config);
@@ -96,24 +60,28 @@ static void main_loop(config_t *config)
 
 void to_game(config_t *config)
 {
-    return;
-}
-
-/*void to_game(config_t *config)
-{
+    config->active_map = malloc(sizeof(map_t));
+    config->active_map->name = "Ville_dAge_1";
+    if (load_map(config->active_map) == 1)
+        return;
     sfRenderWindow_setMouseCursorVisible(config->window, sfFalse);
     sfMusic_stop(config->sounds->menu_theme);
     sfMusic_play(config->sounds->main_theme);
     sfMusic_setVolume(config->sounds->main_theme, 60);
     sfMusic_setLoop(config->sounds->main_theme, sfTrue);
-    sfRenderWindow_drawSprite(config->window,
-        config->bsprites->background_sprite->sprite, NULL);
-    sfRenderWindow_drawSprite(config->window,
-    config->mouse_cursor->sprite, NULL);
+    sfRenderWindow_drawSprite(config->window, config->active_map->map, NULL);
+    sfRenderWindow_drawSprite(
+        config->window, config->player->sprite->sprite, NULL);
     sfRenderWindow_display(config->window);
     config->is_menu = 0;
+    if (config->view == NULL) {
+        config->view = sfView_createFromRect((sfFloatRect){0, 0, 1920, 1080});
+        sfView_setCenter(config->view, config->player->pos);
+    }
+    sfRenderWindow_setView(config->window, config->view);
     main_loop(config);
-}*/
+}
+
 int main(int ac, char **av)
 {
     config_t *config;

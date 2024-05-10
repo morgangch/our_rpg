@@ -22,22 +22,35 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+typedef struct enemy_s {
+    int current_hp;
+    int max_hp;
+    int defense;
+    int attack;
+    int xp;
+    int gold;
+    int *drops;
+    int *drops_chance;
+    int *drops_nb;
+} enemy_t;
+
 typedef struct character_s {
+    char *name;
+    int level;
+    int strength;
+    int intelligence;
+    int agility;
+    int luck;
     int current_hp;
     int max_hp;
     int current_mp;
     int max_mp;
-    int id_current_weapon;
-    int id_current_armor;
-    int id_current_accessory;
-    int id_current_shield;
+    int xp;
+    int xp_max;
+    int gold;
+    int armor;
+    int weapon;
 } character_t;
-
-typedef struct map_info_s {
-    int **map;
-    sfVector2i size;
-    int max_range;
-} map_info_t;
 
 typedef struct mouvement_s {
     int direction;
@@ -65,14 +78,14 @@ typedef struct offset_maxvalue_s {
     int max_value;
 } offset_maxvalue_t;
 
-typedef struct enemies_s {
-    sprite_t *enemy1;
-    sprite_t *enemy2;
-    sprite_t *enemy3;
-    sprite_t *enemy4;
-    sprite_t *enemy5;
-    int base_speed;
-} enemies_t;
+typedef struct player_s {
+    sfVector2f pos;
+    int direction;
+    int speed;
+    int is_moving;
+    sprite_t *sprite;
+    character_t *character;
+} player_t;
 
 typedef struct button_s {
     sfRectangleShape *shape;
@@ -122,25 +135,43 @@ typedef struct texts_s {
     sfText *highscore_text;
 } texts_t;
 
+typedef struct map_layers_s {
+    int **map_collisions;
+    int **map_light;
+    int **map_height;
+    int **map_interactibles;
+    int **map_links;
+} map_layers_t;
+
+typedef struct map_s {
+    char *name;
+    sfSprite *map;
+    sfTexture *map_texture;
+    map_layers_t *map_layers;
+} map_t;
+
 typedef struct config_s {
     sfVideoMode mode;
     sfRenderWindow *window;
     sfEvent *event;
     float delta_time;
-    int enemies_nb;
     int is_menu;
     sfClock *clock;
     game_t *game;
     buttons_t *main_menu_buttons;
     buttons_t *pause_menu_buttons;
-    enemies_t *enemies;
     sprite_t *mouse_cursor;
     sounds_t *sounds;
     back_sprites_t *bsprites;
+    player_t *player;
     texts_t *texts;
+    map_t *active_map;
+    sfView *view;
+    sfView *menu_view;
 } config_t;
 
-typedef struct map_s {
-    char *name;
-    map_info_t *map_info;
-} map_t;
+typedef struct map_info_s {
+    int **map;
+    sfVector2i size;
+    int max_range;
+} map_info_t;

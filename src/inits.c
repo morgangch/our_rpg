@@ -98,6 +98,19 @@ static game_t *create_game(void)
     return game_toreturn;
 }
 
+static player_t *create_player(void)
+{
+    player_t *player_toreturn = malloc(sizeof(player_t));
+
+    player_toreturn->sprite = create_sprite("assets/player.png",
+        (sfIntRect){0, 0, 128, 64}, (offset_maxvalue_t){128, 64},
+        (sfVector2f){0, 0});
+    player_toreturn->pos = (sfVector2f){0, 0};
+    player_toreturn->speed = 10;
+    player_toreturn->direction = 0;
+    return player_toreturn;
+}
+
 static config_t *finish_config(config_t *config_toreturn)
 {
     config_toreturn->pause_menu_buttons =
@@ -108,8 +121,8 @@ static config_t *finish_config(config_t *config_toreturn)
     config_toreturn->mouse_cursor =
         create_sprite("assets/mousecursor.png", (sfIntRect){0, 0, 50, 100},
             (offset_maxvalue_t){50, 100}, (sfVector2f){0, 0});
-    config_toreturn->enemies = generate_x_entities_with_sprite(
-        config_toreturn->enemies_nb, 10, config_toreturn->mode);
+    config_toreturn->player = malloc(sizeof(player_t));
+    config_toreturn->player = create_player();
     return config_toreturn;
 }
 
@@ -125,7 +138,6 @@ config_t *create_config(void)
     config_toreturn->event = malloc(sizeof(sfEvent));
     config_toreturn->sounds = create_sounds();
     config_toreturn->bsprites = create_back_sprites(config_toreturn);
-    config_toreturn->enemies_nb = 10;
     config_toreturn->is_menu = 1;
     config_toreturn->game = create_game();
     return finish_config(config_toreturn);

@@ -32,6 +32,8 @@ void to_m_menu(config_t *config)
 {
     sprite_t *sprite = config->bsprites->menu_sprite;
 
+    config->menu_view = sfRenderWindow_getDefaultView(config->window);
+    sfRenderWindow_setView(config->window, config->menu_view);
     sfRenderWindow_setMouseCursorVisible(config->window, sfTrue);
     sfRenderWindow_drawSprite(
         config->window, config->mouse_cursor->sprite, NULL);
@@ -67,9 +69,6 @@ int check_m_menu_click(config_t *config)
 static void analyse_m_menu2(config_t *config)
 {
     switch (check_m_menu_click(config)) {
-        case 5:
-            to_game(config);
-            break;
         case 1:
             save_loader(config);
             break;
@@ -81,6 +80,9 @@ static void analyse_m_menu2(config_t *config)
             break;
         case 4:
             settings_menu(config);
+            break;
+        case 5:
+            to_game(config);
             break;
         default:
             break;

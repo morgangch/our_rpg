@@ -8,6 +8,30 @@
 #include "my.h"
 #include "structures.h"
 
+static void on_key_press2(config_t *config)
+{
+    switch ((config)->event->key.code) {
+        case sfKeyUp:
+        case sfKeyZ:
+            move_sprite(config, config->player->sprite, (sfVector2f){0, -27});
+            break;
+        case sfKeyDown:
+        case sfKeyS:
+            move_sprite(config, config->player->sprite, (sfVector2f){0, 27});
+            break;
+        case sfKeyLeft:
+        case sfKeyQ:
+            move_sprite(config, config->player->sprite, (sfVector2f){-48, 0});
+            break;
+        case sfKeyRight:
+        case sfKeyD:
+            move_sprite(config, config->player->sprite, (sfVector2f){48, 0});
+            break;
+        default:
+            break;
+    }
+}
+
 void on_key_press(config_t *config)
 {
     if ((config)->event->type != sfEvtKeyPressed)
@@ -18,13 +42,14 @@ void on_key_press(config_t *config)
             break;
         case sfKeyM:
             config->sounds->MainThemeIsPlaying =
-            !config->sounds->MainThemeIsPlaying;
+                !config->sounds->MainThemeIsPlaying;
             if (config->sounds->MainThemeIsPlaying == true)
                 sfMusic_play(config->sounds->main_theme);
             else
                 sfMusic_pause(config->sounds->main_theme);
             break;
         default:
+            on_key_press2(config);
             break;
     }
 }
@@ -46,17 +71,17 @@ static void analyse_game2(config_t *config)
 {
     if ((config)->event->type == sfEvtMouseMoved) {
         sfSprite_setPosition(config->mouse_cursor->sprite,
-        (sfVector2f){(config)->event->mouseMove.x,
-        (config)->event->mouseMove.y});
-        sfRenderWindow_drawSprite(config->window,
-        config->mouse_cursor->sprite, NULL);
+            (sfVector2f){
+                (config)->event->mouseMove.x, (config)->event->mouseMove.y});
+        sfRenderWindow_drawSprite(
+            config->window, config->mouse_cursor->sprite, NULL);
     }
     if ((config)->event->type == sfEvtMouseButtonReleased) {
         move_rect(config->mouse_cursor);
-        sfSprite_setTextureRect(config->mouse_cursor->sprite,
-        config->mouse_cursor->rect);
-        sfRenderWindow_drawSprite(config->window,
-        config->mouse_cursor->sprite, NULL);
+        sfSprite_setTextureRect(
+            config->mouse_cursor->sprite, config->mouse_cursor->rect);
+        sfRenderWindow_drawSprite(
+            config->window, config->mouse_cursor->sprite, NULL);
     }
 }
 
@@ -66,10 +91,10 @@ void analyse_game(config_t *config)
         if ((config)->event->type == sfEvtMouseButtonPressed) {
             manage_mouse_click(config);
             move_rect(config->mouse_cursor);
-            sfSprite_setTextureRect((config->mouse_cursor)->sprite,
-            (config->mouse_cursor)->rect);
-            sfRenderWindow_drawSprite(config->window,
-            (config->mouse_cursor)->sprite, NULL);
+            sfSprite_setTextureRect(
+                (config->mouse_cursor)->sprite, (config->mouse_cursor)->rect);
+            sfRenderWindow_drawSprite(
+                config->window, (config->mouse_cursor)->sprite, NULL);
         }
         if ((config)->event->type == sfEvtClosed)
             close_window(config);
@@ -90,14 +115,6 @@ void analyse_events(config_t *config, int menu)
 void manage_mouse_click(config_t *config)
 {
     sfMusic_setVolume(config->sounds->main_theme, 0);
-    if (check_collision(config) > 0) {
-        sfSound_play(config->sounds->touching_sound);
-        config->game->score += 1;
-        if (config->game->score % 10 == 0 && config->game->score != 0)
-            config->enemies->base_speed++;
-        sfMusic_setVolume(config->sounds->main_theme, 60);
-        return;
-    }
     sfSound_play(config->sounds->missing_sound);
     sfMusic_setVolume(config->sounds->main_theme, 60);
 }

@@ -8,19 +8,24 @@
 #include "my.h"
 #include "structures.h"
 
-character_t *create_character(int hp, int mp)
+character_t *create_character(void)
 {
     character_t *character = malloc(sizeof(character_t));
 
     if (!character)
         return NULL;
-    character->current_hp = hp;
-    character->max_hp = hp;
-    character->current_mp = mp;
-    character->max_mp = mp;
-    character->id_current_weapon = -1;
-    character->id_current_armor = -1;
-    character->id_current_accessory = -1;
-    character->id_current_shield = -1;
+    character->current_hp = -1;
+    character->current_mp = -1;
+    character->gold = -1;
+    character->intelligence = -1;
+    character->level = -1;
+    character->luck = -1;
+    character->max_hp = -1;
+    character->max_mp = -1;
+    character->name = NULL;
+    character->strength = -1;
+    character->weapon = -1;
+    character->xp = -1;
+    character->xp_max = -1;
     return character;
 }

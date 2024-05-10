@@ -39,29 +39,12 @@ void setup_game(config_t *config)
     sfRenderWindow_setIcon(config->window, 64, 64, pixels);
 }
 
-void draw_sprites(config_t *config)
-{
-    sfRenderWindow_drawSprite(
-        config->window, config->enemies->enemy1->sprite, NULL);
-    sfRenderWindow_drawSprite(
-        config->window, config->enemies->enemy2->sprite, NULL);
-    sfRenderWindow_drawSprite(
-        config->window, config->enemies->enemy3->sprite, NULL);
-    sfRenderWindow_drawSprite(
-        config->window, config->enemies->enemy4->sprite, NULL);
-    sfRenderWindow_drawSprite(
-        config->window, config->enemies->enemy5->sprite, NULL);
-    sfRenderWindow_drawSprite(
-        config->window, config->mouse_cursor->sprite, NULL);
-}
-
 void basic_checks(config_t *config)
 {
     if (config->game->score > config->game->highscore)
         config->game->highscore = config->game->score;
     if (config->game->score % 100 == 0 && config->game->score != 0) {
         config->game->level++;
-        config->enemies->base_speed += 0.5;
     }
     if (config->game->life == 0)
         game_over(config);
@@ -81,11 +64,9 @@ static void reset_game(config_t *config)
     sfRenderWindow_drawSprite(
         config->window, config->mouse_cursor->sprite, NULL);
     sfRenderWindow_display(config->window);
-    config->enemies = generate_x_entities_with_sprite(5, 0, config->mode);
     config->game->life = 3;
     config->game->score = 0;
     config->game->level = 1;
-    config->enemies->base_speed = 0.5;
 }
 
 void game_over(config_t *config)

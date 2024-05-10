@@ -13,7 +13,6 @@ SRCS =	src/frees_destructs.c \
 		src/altfuncs2.c \
 		src/window_handling.c \
 		src/get_shortest_path.c \
-		src/check_collisions.c \
 		src/main.c \
 		src/get_score.c \
 		src/inits.c \
@@ -26,6 +25,7 @@ SRCS =	src/frees_destructs.c \
 		src/save_handling/save_make.c \
 		src/create_character.c \
 		src/map_handling/load_map.c \
+		src/take_dmg.c \
 		##src/dialogs/*.c \
 		##src/fights/*.c \
 		##src/map_handling/*.c \

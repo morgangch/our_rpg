@@ -8,21 +8,6 @@
 #include "my.h"
 #include "structures.h"
 
-static void destroy_enemies(enemies_t *enemies)
-{
-    sfSprite_destroy(enemies->enemy1->sprite);
-    sfSprite_destroy(enemies->enemy2->sprite);
-    sfSprite_destroy(enemies->enemy3->sprite);
-    sfSprite_destroy(enemies->enemy4->sprite);
-    sfSprite_destroy(enemies->enemy5->sprite);
-    free(enemies->enemy1);
-    free(enemies->enemy2);
-    free(enemies->enemy3);
-    free(enemies->enemy4);
-    free(enemies->enemy5);
-    free(enemies);
-}
-
 static void destroy_bsprites(back_sprites_t *bsprites)
 {
     sfSprite_destroy(bsprites->background_sprite->sprite);
@@ -93,7 +78,6 @@ void destroy_config(config_t *config)
     sfRenderWindow_destroy(config->window);
     sfClock_destroy(config->clock);
     free(config->event);
-    destroy_enemies(config->enemies);
     destroy_bsprites(config->bsprites);
     destroy_texts(config->texts);
     destroy_buttons(config->pause_menu_buttons);

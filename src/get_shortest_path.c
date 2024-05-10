@@ -5,8 +5,8 @@
 ** get_shortest_path
 */
 
-#include "my.h"
-#include "structures.h"
+#include "../includes/my.h"
+#include "../includes/structures.h"
 
 static int get_len_map(int **map)
 {

@@ -9,7 +9,7 @@
 
 void p_menu_loop(config_t *config, sprite_t *sprite)
 {
-    sfVector2f mousePosition;
+    sfVector2f mousePosition = {0, 0};
 
     while (config->is_menu == 1 && sfRenderWindow_isOpen(config->window)) {
         analyse_events(config, 2);
@@ -19,7 +19,7 @@ void p_menu_loop(config_t *config, sprite_t *sprite)
         mousePosition =
             (sfVector2f){sfMouse_getPositionRenderWindow(config->window).x,
                 sfMouse_getPositionRenderWindow(config->window).y};
-        update_buttons(config->main_menu_buttons, mousePosition, 1);
+        update_buttons(config->pause_menu_buttons, mousePosition, 1);
         sfRenderWindow_display(config->window);
     }
     if (config->is_menu == 0 && config->game->life != 0
@@ -32,6 +32,8 @@ void to_p_menu(config_t *config)
 {
     sprite_t *sprite = config->bsprites->pausemenu_sprite;
 
+    config->menu_view = sfRenderWindow_getDefaultView(config->window);
+    sfRenderWindow_setView(config->window, config->menu_view);
     sfRenderWindow_setMouseCursorVisible(config->window, sfTrue);
     sfRenderWindow_drawSprite(
         config->window, config->mouse_cursor->sprite, NULL);
