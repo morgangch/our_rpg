@@ -53,7 +53,7 @@ $(NAME): $(OBJ)
 	@$(MAKE) -C lib/my
 	@$(CC) -o $(NAME) $(OBJ) src/main.c -Iincludes $(LDFLAGS)
 
-tests_run: $(OBJ)
+test: $(OBJ)
 	@$(MAKE) -C lib/my
 	@$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
 
