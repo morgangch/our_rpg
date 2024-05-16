@@ -13,7 +13,6 @@ SRCS =	src/frees_destructs.c \
 		src/altfuncs2.c \
 		src/window_handling.c \
 		src/get_shortest_path.c \
-		src/main.c \
 		src/get_score.c \
 		src/inits.c \
 		src/menus/m_menu_window.c \
@@ -26,6 +25,8 @@ SRCS =	src/frees_destructs.c \
 		src/create_character.c \
 		src/map_handling/load_map.c \
 		src/take_dmg.c \
+		src/calculate_dmg.c \
+		src/to_game.c \
 		##src/dialogs/*.c \
 		##src/fights/*.c \
 		##src/map_handling/*.c \
@@ -50,11 +51,16 @@ all:	$(NAME)
 
 $(NAME): $(OBJ)
 	@$(MAKE) -C lib/my
+	@$(CC) -o $(NAME) $(OBJ) src/main.c $(LDFLAGS)
+
+tests_run: $(OBJ)
+	@$(MAKE) -C lib/my
 	@$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 clean:
 	@$(MAKE) clean -C lib/my
 	@$(RM) -f $(NAME)
+	@$(RM) -f src/main.o
 
 fclean:	clean
 	@$(RM) -f $(OBJ)

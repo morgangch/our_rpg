@@ -7,27 +7,25 @@
 
 #include "my.h"
 
-void skip(char **p)
+char **str_to_word_array(char *str, char delimiter)
 {
-    while (**p != '\0' && **p != ' ') {
-        (*p)++;
-    }
-}
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    char **array;
 
-void str_to_word_array(char *str, char **arr)
-{
-    int index = 0;
-    char *p = my_strdup(str);
-
-    while (*p != '\0') {
-        if (*p == ' ') {
-            *p = '\0';
-            p++;
-        } else {
-            arr[index] = p;
-            index++;
-            skip(&p);
-        }
+    for (i = 0; str[i] != '\0'; i++)
+        if (str[i] == delimiter)
+            j++;
+    array = malloc(sizeof(char *) * (j + 2));
+    for (i = 0; i < j + 1; i++) {
+        for (k = 0; str[k] != '\0' && str[k] != delimiter; k++);
+        array[i] = malloc(sizeof(char) * (k + 1));
+        for (k = 0; str[k] != '\0' && str[k] != delimiter; k++)
+            array[i][k] = str[k];
+        array[i][k] = '\0';
+        str += k + 1;
     }
-    arr[index] = NULL;
+    array[i] = NULL;
+    return array;
 }
