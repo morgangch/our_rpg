@@ -51,7 +51,7 @@ all:	$(NAME)
 
 $(NAME): $(OBJ)
 	@$(MAKE) -C lib/my
-	@$(CC) -o $(NAME) $(OBJ) src/main.c $(LDFLAGS)
+	@$(CC) -o $(NAME) $(OBJ) src/main.c -Iincludes $(LDFLAGS)
 
 tests_run: $(OBJ)
 	@$(MAKE) -C lib/my

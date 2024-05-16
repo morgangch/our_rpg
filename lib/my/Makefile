@@ -45,7 +45,8 @@ SRCS	=	my_error_handler.c	\
 			my_strncpy.c	\
 			my_strcat.c	\
 			my_strdup.c \
-			str_to_word_array.c
+			str_to_word_array.c \
+			my_strlen_until.c
 
 CPPFLAGS = -I../../includes
 
