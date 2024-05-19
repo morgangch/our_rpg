@@ -34,6 +34,11 @@ typedef struct enemy_s {
     int *drops_nb;
 } enemy_t;
 
+typedef struct linked_list_int_s {
+    int data;
+    struct linked_list_int_s *next;
+} linked_list_int_t;
+
 typedef struct character_s {
     char *name;
     int level;
@@ -50,6 +55,7 @@ typedef struct character_s {
     int gold;
     int armor;
     int weapon;
+    linked_list_int_t *inventory;
 } character_t;
 
 typedef struct mouvement_s {

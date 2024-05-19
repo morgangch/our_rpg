@@ -73,3 +73,8 @@ int take_dmg_e(character_t *ennemy, int dmg);
 int load_map(map_t *map);
 int my_strlen_until(char *str, char c);
 char **str_to_word_array(char *str, char delimiter);
+void remove_item_from_inventory(character_t *player, int item_id);
+void add_item_to_inventory(character_t *player, int item_id);
+void equip_item(character_t *player, int item_id);
+void switch_inventory_item(character_t *player,
+    character_t *player2, int item_id);
