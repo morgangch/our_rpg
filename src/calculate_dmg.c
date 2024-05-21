@@ -120,7 +120,7 @@ static int dmg_luck(char *weapon,
     return dmg;
 }
 
-int calculate_dmg(character_t *player, enemy_t *ennemy, int spell_id)
+int calculate_true_dmg(character_t *player, enemy_t *ennemy, int spell_id)
 {
     char *weapon = read_item(player->weapon);
     char *spell = get_spell(spell_id);
@@ -138,4 +138,21 @@ int calculate_dmg(character_t *player, enemy_t *ennemy, int spell_id)
     if (*spell == '4')
         return dmg_luck(weapon, spell, player, ennemy->defense);
     return 0;
+}
+
+int calculate_dmg(character_t *player, enemy_t *ennemy, int spell_id)
+{
+    int dmg = calculate_true_dmg(player, ennemy, spell_id);
+    int crit = rand() % 100 + player->luck;
+    char *weapon = read_item(player->weapon);
+
+    weapon += my_strlen_until(weapon, ';') + 1;
+    weapon += my_strlen_until(weapon, ';') + 1;
+    if (*weapon == '4'){
+        weapon += my_strlen_until(weapon, ';') + 1;
+        crit += atoi(weapon);
+    }
+    if (crit > 70)
+        dmg *= 2;
+    return dmg;
 }

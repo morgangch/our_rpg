@@ -80,3 +80,4 @@ void switch_inventory_item(character_t *player,
 int unload_map(map_t *map);
 void map_debug(map_t *map);
 void load_map_player(config_t *config, int map_name);
+int calculate_dmg_teken(character_t *player, enemy_t *enemy);
