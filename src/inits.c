@@ -102,9 +102,10 @@ static player_t *create_player(void)
 {
     player_t *player_toreturn = malloc(sizeof(player_t));
 
-    player_toreturn->sprite = create_sprite("assets/player.png",
-        (sfIntRect){0, 0, 128, 64}, (offset_maxvalue_t){128, 64},
+    player_toreturn->sprite = create_sprite("assets/sprites/Martin.png",
+        (sfIntRect){0, 0, 128, 128}, (offset_maxvalue_t){128, 128},
         (sfVector2f){0, 0});
+    sfSprite_setScale(player_toreturn->sprite->sprite, (sfVector2f){0.5, 0.5});
     player_toreturn->pos = (sfVector2f){0, 0};
     player_toreturn->speed = 10;
     player_toreturn->direction = 0;

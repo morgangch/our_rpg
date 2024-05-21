@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include <string.h>
 
 void move_rect(sprite_t *sprite)
 {
@@ -61,9 +62,7 @@ static void main_loop(config_t *config)
 void to_game(config_t *config)
 {
     config->active_map = malloc(sizeof(map_t));
-    config->active_map->name = "Ville_dAge_1";
-    if (load_map(config->active_map) == 1)
-        return;
+    load_map_player(config, 2);
     sfRenderWindow_setMouseCursorVisible(config->window, sfFalse);
     sfMusic_stop(config->sounds->menu_theme);
     sfMusic_play(config->sounds->main_theme);

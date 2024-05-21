@@ -8,16 +8,29 @@
 #include "my.h"
 #include "structures.h"
 
+static void handle_key(config_t *config, int direction)
+{
+    config->player->direction = direction;
+    if (direction == 0)
+        move_sprite(config, config->player->sprite, (sfVector2f){48, 0});
+    if (direction == 1)
+        move_sprite(config, config->player->sprite, (sfVector2f){-48, 0});
+    if (direction == 2)
+        move_sprite(config, config->player->sprite, (sfVector2f){0, 27});
+    if (direction == 3)
+        move_sprite(config, config->player->sprite, (sfVector2f){0, -27});
+}
+
 static void on_key_press2(config_t *config)
 {
     switch ((config)->event->key.code) {
         case sfKeyUp:
         case sfKeyZ:
-            move_sprite(config, config->player->sprite, (sfVector2f){0, -27});
+            handle_key(config, 3);
             break;
         case sfKeyDown:
         case sfKeyS:
-            move_sprite(config, config->player->sprite, (sfVector2f){0, 27});
+            handle_key(config, 2);
             break;
         case sfKeyLeft:
         case sfKeyQ:

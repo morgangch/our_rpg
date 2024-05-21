@@ -147,6 +147,7 @@ typedef struct map_layers_s {
     int **map_height;
     int **map_interactibles;
     int **map_links;
+    char *map_datas;
 } map_layers_t;
 
 typedef struct map_s {
