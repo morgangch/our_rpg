@@ -88,3 +88,5 @@ void free_all_inventory(character_t *player);
 void create_inventory(character_t *player);
 void display_inventory(character_t *player);
 void manage_inventory_boucle(character_t *player);
+player_t *load_player(void);
+void save_player(player_t *player);
