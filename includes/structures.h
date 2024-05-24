@@ -122,6 +122,7 @@ typedef struct back_sprites_s {
     sprite_t *menu_sprite;
     sprite_t *gameover_sprite;
     sprite_t *pausemenu_sprite;
+    sprite_t *inventory_sprite;
 } back_sprites_t;
 
 typedef struct buttons_s {

@@ -48,6 +48,9 @@ static back_sprites_t *create_back_sprites(config_t *config)
     bsprite->pausemenu_sprite = create_sprite("assets/pause_menu.jpg",
         (sfIntRect){0, 0, config->mode.width, config->mode.height},
         (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});
+    bsprite->inventory_sprite = create_sprite("assets/inventory.png",
+        (sfIntRect){0, 0, config->mode.width, config->mode.height},
+        (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});
     return bsprite;
 }
 

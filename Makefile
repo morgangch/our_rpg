@@ -33,6 +33,7 @@ SRCS =	src/frees_destructs.c \
 		src/switch_inventory_item.c \
 		src/calculate_dmg_teken.c \
 		src/do_turn_combat.c \
+		src/inventory.c \
 		src/save.c \
 		##src/dialogs/*.c \
 		##src/fights/*.c \

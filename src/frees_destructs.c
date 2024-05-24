@@ -13,10 +13,11 @@ static void destroy_bsprites(back_sprites_t *bsprites)
     sfSprite_destroy(bsprites->background_sprite->sprite);
     sfSprite_destroy(bsprites->menu_sprite->sprite);
     sfSprite_destroy(bsprites->gameover_sprite->sprite);
+    sfSprite_destroy(bsprites->inventory_sprite->sprite);
     free(bsprites->background_sprite);
     free(bsprites->menu_sprite);
     free(bsprites->gameover_sprite);
-    free(bsprites);
+    free(bsprites->inventory_sprite);
 }
 
 static void destroy_texts(texts_t *texts)
