@@ -14,7 +14,6 @@
 void close_window(config_t *config)
 {
     sfRenderWindow_close(config->window);
-    destroy_config(config);
 }
 
 static void update_button(button_t *button, sfVector2f mousePosition)

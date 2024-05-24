@@ -21,6 +21,7 @@ int main(int ac, char **av)
     if (!(config->window))
         return 1;
     to_m_menu(config);
+    destroy_config(config);
     return 0;
 }
 
