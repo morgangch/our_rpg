@@ -83,3 +83,5 @@ void load_map_player(config_t *config, int map_name);
 int calculate_dmg_teken(character_t *player, enemy_t *enemy);
 int calculate_dmg(character_t *player, enemy_t *ennemy, int spell_id);
 int do_turn_combat(character_t *player, enemy_t *enemy, int spell_id);
+player_t *load_player(void);
+void save_player(player_t *player);
