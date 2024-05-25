@@ -22,6 +22,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+typedef struct config_s config_t;
+typedef struct button_s button_t;
+
 typedef struct enemy_s {
     int current_hp;
     int max_hp;
@@ -93,18 +96,6 @@ typedef struct player_s {
     character_t *character;
 } player_t;
 
-typedef struct button_s {
-    sfRectangleShape *shape;
-    sfText *text;
-    sfColor defaultColor;
-    sfColor hoverColor;
-    sfColor currentColor;
-    sfVector2f position;
-    sfVector2f size;
-    sfFont *font;
-    sfBool isMouseOver;
-} button_t;
-
 typedef struct sounds_s {
     sfMusic *main_theme;
     sfMusic *menu_theme;
@@ -124,16 +115,6 @@ typedef struct back_sprites_s {
     sprite_t *pausemenu_sprite;
     sprite_t *inventory_sprite;
 } back_sprites_t;
-
-typedef struct buttons_s {
-    button_t *save_button;
-    button_t *load_button;
-    button_t *new_button;
-    button_t *settings_button;
-    button_t *quit_button;
-    button_t *cheat_button;
-    button_t *resume_button;
-} buttons_t;
 
 typedef struct texts_s {
     sfText *score_text;
@@ -166,8 +147,9 @@ typedef struct config_s {
     int is_menu;
     sfClock *clock;
     game_t *game;
-    buttons_t *main_menu_buttons;
-    buttons_t *pause_menu_buttons;
+    button_t *main_menu_buttons;
+    button_t *pause_menu_buttons;
+    button_t *settings_menu_buttons;
     sprite_t *mouse_cursor;
     sounds_t *sounds;
     back_sprites_t *bsprites;
@@ -177,6 +159,17 @@ typedef struct config_s {
     sfView *view;
     sfView *menu_view;
 } config_t;
+
+typedef struct button_s {
+    sfColor col_normal;
+    sfColor col_pressed;
+    sfColor col_hover;
+    sfText *text;
+    sfRectangleShape *rect;
+    int action;
+    void (*callback)(config_t *config, int action);
+    struct button_s *next;
+} button_t;
 
 typedef struct map_info_s {
     int **map;

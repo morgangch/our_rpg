@@ -16,41 +16,6 @@ void close_window(config_t *config)
     sfRenderWindow_close(config->window);
 }
 
-static void update_button(button_t *button, sfVector2f mousePosition)
-{
-    int mouseposy = mousePosition.y;
-
-    if (sfRectangleShape_getGlobalBounds(button->shape).left <= mousePosition.x
-        && sfRectangleShape_getGlobalBounds(button->shape).left
-                + sfRectangleShape_getGlobalBounds(button->shape).width
-            >= mousePosition.x
-        && sfRectangleShape_getGlobalBounds(button->shape).top <= mouseposy
-        && sfRectangleShape_getGlobalBounds(button->shape).top
-                + sfRectangleShape_getGlobalBounds(button->shape).height
-            >= mouseposy) {
-        button->isMouseOver = sfTrue;
-        button->currentColor = button->hoverColor;
-    } else {
-        button->isMouseOver = sfFalse;
-        button->currentColor = button->defaultColor;
-    }
-    sfRectangleShape_setFillColor(button->shape, button->currentColor);
-}
-
-void update_buttons(buttons_t *buttons, sfVector2f mousePosition, int menu)
-{
-    update_button(buttons->load_button, mousePosition);
-    update_button(buttons->settings_button, mousePosition);
-    update_button(buttons->quit_button, mousePosition);
-    update_button(buttons->resume_button, mousePosition);
-    if (menu == 1)
-        update_button(buttons->save_button, mousePosition);
-    if (menu == 2) {
-        update_button(buttons->cheat_button, mousePosition);
-        update_button(buttons->new_button, mousePosition);
-    }
-}
-
 void move_sprite(config_t *config, sprite_t *sprite, sfVector2f value)
 {
     int new_x = sprite->pos.x + value.x;

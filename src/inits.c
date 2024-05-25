@@ -117,10 +117,12 @@ static player_t *create_player(void)
 
 static config_t *finish_config(config_t *config_toreturn)
 {
-    config_toreturn->pause_menu_buttons =
-        create_buttons(config_toreturn->mode, 1);
     config_toreturn->main_menu_buttons =
         create_buttons(config_toreturn->mode, 0);
+    config_toreturn->pause_menu_buttons =
+        create_buttons(config_toreturn->mode, 1);
+    config_toreturn->settings_menu_buttons =
+        create_buttons(config_toreturn->mode, 2);
     config_toreturn->texts = create_texts();
     config_toreturn->mouse_cursor =
         create_sprite("assets/mousecursor.png", (sfIntRect){0, 0, 50, 100},

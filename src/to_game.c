@@ -15,25 +15,6 @@ void move_rect(sprite_t *sprite)
         sprite->rect.left = 0;
 }
 
-static void set_text_m(config_t *config, button_t *button)
-{
-    if (button == NULL)
-        return;
-    sfRenderWindow_drawRectangleShape(config->window, button->shape, NULL);
-    sfRenderWindow_drawText(config->window, button->text, NULL);
-}
-
-void mass_set_text_m(config_t *config, buttons_t *buttons)
-{
-    set_text_m(config, buttons->save_button);
-    set_text_m(config, buttons->load_button);
-    set_text_m(config, buttons->new_button);
-    set_text_m(config, buttons->settings_button);
-    set_text_m(config, buttons->quit_button);
-    set_text_m(config, buttons->resume_button);
-    set_text_m(config, buttons->cheat_button);
-}
-
 static void clock_time_get(config_t *config)
 {
     config->delta_time = sfClock_getElapsedTime(config->clock).microseconds;

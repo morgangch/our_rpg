@@ -8,9 +8,10 @@
 #include "my.h"
 #include "structures.h"
 
-static void handle_key(config_t *config, int direction)
+static void handle_key(config_t *config, int direction, int is_menu)
 {
-    config->player->direction = direction;
+    if (is_menu == 1)
+        return;
     if (direction == 0)
         move_sprite(config, config->player->sprite, (sfVector2f){48, 0});
     if (direction == 1)
@@ -26,19 +27,19 @@ static void on_key_press2(config_t *config)
     switch ((config)->event->key.code) {
         case sfKeyUp:
         case sfKeyZ:
-            handle_key(config, 3);
+            handle_key(config, 3, config->is_menu);
             break;
         case sfKeyDown:
         case sfKeyS:
-            handle_key(config, 2);
+            handle_key(config, 2, config->is_menu);
             break;
         case sfKeyLeft:
         case sfKeyQ:
-            move_sprite(config, config->player->sprite, (sfVector2f){-48, 0});
+            handle_key(config, 1, config->is_menu);
             break;
         case sfKeyRight:
         case sfKeyD:
-            move_sprite(config, config->player->sprite, (sfVector2f){48, 0});
+            handle_key(config, 0, config->is_menu);
             break;
         default:
             break;
@@ -76,6 +77,8 @@ void analyse_menu(config_t *config, int menu)
             analyse_m_menu(config);
         if (menu == 2)
             analyse_p_menu(config);
+        if (menu == 3)
+            analyse_s_menu(config);
         on_key_press(config);
     }
 }
@@ -127,7 +130,5 @@ void analyse_events(config_t *config, int menu)
 
 void manage_mouse_click(config_t *config)
 {
-    sfMusic_setVolume(config->sounds->main_theme, 0);
-    sfSound_play(config->sounds->missing_sound);
-    sfMusic_setVolume(config->sounds->main_theme, 60);
+    return;
 }

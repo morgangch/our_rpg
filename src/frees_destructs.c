@@ -33,21 +33,15 @@ static void destroy_button(button_t *button)
 {
     if (button == NULL)
         return;
-    sfRectangleShape_destroy(button->shape);
+    sfRectangleShape_destroy(button->rect);
     sfText_destroy(button->text);
     free(button);
 }
 
-static void destroy_buttons(buttons_t *buttons)
+static void destroy_buttons(button_t *buttons)
 {
-    destroy_button(buttons->save_button);
-    destroy_button(buttons->load_button);
-    destroy_button(buttons->new_button);
-    destroy_button(buttons->settings_button);
-    destroy_button(buttons->quit_button);
-    destroy_button(buttons->cheat_button);
-    destroy_button(buttons->resume_button);
-    free(buttons);
+    for (button_t *tmp = buttons; tmp != NULL; tmp = tmp->next)
+        destroy_button(tmp);
 }
 
 static void destroy_sounds(sounds_t *sounds)
@@ -83,6 +77,7 @@ void destroy_config(config_t *config)
     destroy_texts(config->texts);
     destroy_buttons(config->pause_menu_buttons);
     destroy_buttons(config->main_menu_buttons);
+    destroy_buttons(config->settings_menu_buttons);
     destroy_sounds(config->sounds);
     destroy_game(config->game);
     destroy_mouse_cursor(config->mouse_cursor);

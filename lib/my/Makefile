@@ -68,4 +68,7 @@ fclean: clean
 	@$(RM) $(NAME)
 	@$(RM) ../$(NAME)
 
+debug: CFLAGS += -g
+debug: re
+
 re:	fclean all

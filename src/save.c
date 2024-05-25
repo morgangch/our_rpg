@@ -87,3 +87,13 @@ player_t *load_player(void)
     fclose(fp);
     return player;
 }
+
+void load_handler(config_t *config)
+{
+    config->player = load_player();
+}
+
+void save_handler(config_t *config)
+{
+    save_player(config->player);
+}
