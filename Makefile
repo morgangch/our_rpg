@@ -5,7 +5,7 @@
 ## Makefile myprintf
 ##
 
-NAME	=	myrpg
+NAME = myrpg
 
 SRCS =	src/frees_destructs.c \
 		src/analysefuncs.c \
@@ -18,7 +18,7 @@ SRCS =	src/frees_destructs.c \
 		src/menus/m_menu_window.c \
 		src/menus/p_menu_window.c \
 		src/utils/buttons.c \
-		src/settings/settings_menu.c \
+		src/menus/settings_menu.c \
 		src/save_handling/new_game.c \
 		src/save_handling/save_load.c \
 		src/save_handling/save_make.c \
@@ -35,6 +35,8 @@ SRCS =	src/frees_destructs.c \
 		src/do_turn_combat.c \
 		src/inventory.c \
 		src/save.c \
+		src/menus/analyse_elts.c \
+		src/menus/all_buttons.c \
 		##src/dialogs/*.c \
 		##src/fights/*.c \
 		##src/map_handling/*.c \
@@ -76,11 +78,8 @@ fclean:	clean
 
 re: fclean all
 
-debug: CFLAGS += $(DEBUGFLAGS)
-debug: $(OBJ)
-	@$(MAKE) -C lib/my
-	@$(CC) -o $(NAME) $(OBJ) $(LDFLAGS) $(DEBUGFLAGS)
-
+debug: CFLAGS += -g3
+debug: re
 debug_re: fclean debug
 
 debug_run: debug_re
