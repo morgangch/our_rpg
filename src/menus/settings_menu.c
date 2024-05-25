@@ -25,6 +25,7 @@ void to_s_menu(config_t *config)
 {
     sprite_t *sprite = config->bsprites->pausemenu_sprite;
 
+    sfRenderWindow_clear(config->window, sfBlack);
     sfRenderWindow_drawSprite(config->window, sprite->sprite, NULL);
     display_buttons(config->pause_menu_buttons, config->window);
     sfRenderWindow_display(config->window);

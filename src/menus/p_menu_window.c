@@ -31,6 +31,7 @@ void to_p_menu(config_t *config)
     sfMusic_play(config->sounds->menu_theme);
     sfMusic_setVolume(config->sounds->menu_theme, 60);
     sfMusic_setLoop(config->sounds->menu_theme, sfTrue);
+    sfRenderWindow_clear(config->window, sfBlack);
     sfRenderWindow_drawSprite(config->window, sprite->sprite, NULL);
     display_buttons(config->pause_menu_buttons, config->window);
     sfRenderWindow_display(config->window);

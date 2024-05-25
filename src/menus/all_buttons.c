@@ -93,12 +93,12 @@ static void add_button_datas(
 }
 
 static void add_button_texts(
-    button_t *new_button, sfVector2f pos, int col_preset)
+    button_t *new_button, sfVector2f pos, int col_preset, char *text)
 {
     sfColor text_colors[5] = {sfBlack, sfRed, sfGreen, sfBlue, sfWhite};
 
     new_button->text = sfText_create();
-    sfText_setString(new_button->text, "New Game");
+    sfText_setString(new_button->text, text);
     sfText_setFont(
         new_button->text, sfFont_createFromFile("assets/fonts/arial.ttf"));
     sfText_setCharacterSize(new_button->text, 20);
@@ -113,7 +113,7 @@ button_t *create_button(
     button_t *tmp = head;
 
     add_button_datas(new_button, pos, action.y);
-    add_button_texts(new_button, pos, action.y);
+    add_button_texts(new_button, pos, action.y, text);
     new_button->action = action.x;
     new_button->callback = button_actions;
     sfText_setPosition(new_button->text, (sfVector2f){pos.x + 50, pos.y + 30});
