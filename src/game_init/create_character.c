@@ -27,5 +27,6 @@ character_t *create_character(void)
     character->weapon = 0;
     character->xp = 0;
     character->xp_max = 100;
+    create_inventory(character);
     return character;
 }

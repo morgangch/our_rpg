@@ -22,6 +22,18 @@ static void handle_key(config_t *config, int direction, int is_menu)
         move_sprite(config, config->player->sprite, (sfVector2f){0, -27});
 }
 
+static void on_key_press3(config_t *config)
+{
+    switch ((config)->event->key.code) {
+        case sfKeyE:
+        case sfKeyI:
+            display_inventory(config->player);
+            break;
+        default:
+            break;
+    }
+}
+
 static void on_key_press2(config_t *config)
 {
     switch ((config)->event->key.code) {
@@ -64,6 +76,7 @@ void on_key_press(config_t *config)
             break;
         default:
             on_key_press2(config);
+            on_key_press3(config);
             break;
     }
 }
