@@ -51,7 +51,6 @@ static int get_chests_part(map_t *map, int y, int j)
 
 void get_chests(map_t *map)
 {
-    int i = 0;
     int j = 0;
     int y = 0;
     int count = get_chests_count(map);
