@@ -57,10 +57,10 @@ static button_t *create_s_button(sfVideoMode mode, button_t *button)
         mode.height / 2 - 100}, mode), button, (sfVector2i){7, 0});
     button = create_button("Resolution 2256x1504",
         adapt_position((sfVector2f){mode.width / 2 - 75,
-        mode.height / 2 - 50}, mode), button, (sfVector2i){8, 0});
+        mode.height / 2 - 0}, mode), button, (sfVector2i){8, 0});
     button = create_button("Back",
         adapt_position((sfVector2f){mode.width / 2 - 75,
-        mode.height / 2}, mode), button, (sfVector2i){9, 0});
+        mode.height / 2 + 100}, mode), button, (sfVector2i){9, 0});
     return button;
 }
 

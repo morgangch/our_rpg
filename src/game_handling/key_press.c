@@ -1,0 +1,80 @@
+/*
+** EPITECH PROJECT, 2023
+** myhunter
+** File description:
+** analysefuncs
+*/
+
+#include "my.h"
+#include "structures.h"
+
+static void on_key_press3(config_t *config)
+{
+    switch ((config)->event->key.code) {
+        case sfKeyI:
+            display_inventory(config->player->character);
+            break;
+        case sfKeyE:
+            analyse_hitbox(config, config->player->direction);
+            break;
+        default:
+            break;
+    }
+}
+
+static void on_key_press2(config_t *config)
+{
+    switch ((config)->event->key.code) {
+        case sfKeyUp:
+        case sfKeyZ:
+            handle_key(config, 3, config->is_menu);
+            break;
+        case sfKeyDown:
+        case sfKeyS:
+            handle_key(config, 2, config->is_menu);
+            break;
+        case sfKeyLeft:
+        case sfKeyQ:
+            handle_key(config, 1, config->is_menu);
+            break;
+        case sfKeyRight:
+        case sfKeyD:
+            handle_key(config, 0, config->is_menu);
+            break;
+        default:
+            break;
+    }
+}
+
+void on_key_press(config_t *config)
+{
+    if ((config)->event->type != sfEvtKeyPressed)
+        return;
+    switch ((config)->event->key.code) {
+        case sfKeyEscape:
+            to_p_menu(config);
+            break;
+        case sfKeyM:
+            config->sounds->MainThemeIsPlaying =
+                !config->sounds->MainThemeIsPlaying;
+            if (config->sounds->MainThemeIsPlaying == true)
+                sfMusic_play(config->sounds->main_theme);
+            else
+                sfMusic_pause(config->sounds->main_theme);
+            break;
+        default:
+            on_key_press2(config);
+            on_key_press3(config);
+            break;
+    }
+}
+
+void handle_key(config_t *config, int direction, int is_menu)
+{
+    sfVector2f pos = get_pos(direction);
+
+    if (is_menu == 1)
+        return;
+    config->player->direction = direction;
+    move_sprite(config, config->player->sprite, pos);
+}

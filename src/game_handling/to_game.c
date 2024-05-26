@@ -5,8 +5,8 @@
 ** to_game
 */
 
-#include "my.h"
 #include <string.h>
+#include "my.h"
 
 void move_rect(sprite_t *sprite)
 {
@@ -21,6 +21,14 @@ static void clock_time_get(config_t *config)
     sfClock_restart(config->clock);
 }
 
+static void display_map(config_t *config)
+{
+    sfRenderWindow_drawSprite(config->window, config->active_map->map, NULL);
+    for (int i = 0; i < config->active_map->chests[i] != NULL; i++)
+        sfRenderWindow_drawSprite(
+            config->window, config->active_map->chests[i]->sprite, NULL);
+}
+
 void main_loop(config_t *config)
 {
     float anim_delta_time = 0.0;
@@ -30,8 +38,7 @@ void main_loop(config_t *config)
         && config->is_menu == 0) {
         analyse_events(config, 0);
         sfRenderWindow_clear(config->window, sfBlack);
-        sfRenderWindow_drawSprite(
-            config->window, config->active_map->map, NULL);
+        display_map(config);
         sfRenderWindow_drawSprite(
             config->window, config->player->sprite->sprite, NULL);
         sfRenderWindow_display(config->window);

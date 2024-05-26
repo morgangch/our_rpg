@@ -89,16 +89,8 @@ int **get_map_datas(char *path, struct stat *st)
     return map_datas;
 }
 
-static void load_map(map_t *map)
+static void calc_datas_to_map(map_t *map, char **details)
 {
-    char **details = get_map_details(map->name);
-
-    if (open(details[0], O_RDONLY) == -1)
-        return;
-    map->map_texture = sfTexture_createFromFile(details[0], NULL);
-    map->map = sfSprite_create();
-    sfSprite_setTexture(map->map, map->map_texture, sfTrue);
-    map->map_layers = malloc(sizeof(map_layers_t));
     map->map_layers->map_collisions =
         get_map_datas(details[1], get_stat(details[1]));
     map->map_layers->map_light =
@@ -111,6 +103,20 @@ static void load_map(map_t *map)
         get_map_datas(details[5], get_stat(details[5]));
     map->map_layers->map_datas =
         get_map_content(details[6], get_stat(details[6]));
+}
+
+static void load_map(map_t *map)
+{
+    char **details = get_map_details(map->name);
+
+    if (open(details[0], O_RDONLY) == -1)
+        return;
+    map->map_texture = sfTexture_createFromFile(details[0], NULL);
+    map->map = sfSprite_create();
+    sfSprite_setTexture(map->map, map->map_texture, sfTrue);
+    map->map_layers = malloc(sizeof(map_layers_t));
+    calc_datas_to_map(map, details);
+    get_chests(map);
 }
 
 void load_map_player(config_t *config, int map_name)

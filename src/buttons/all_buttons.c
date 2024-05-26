@@ -71,7 +71,7 @@ void button_actions(config_t *config, int action)
 }
 
 static void add_button_datas(
-    button_t *new_button, sfVector2f pos, int col_preset)
+    button_t *new_button, sfVector2f pos, int col_preset, int text_size)
 {
     sfColor hover_colors[5] = {(sfColor){87, 87, 87, 255},
         (sfColor){77, 77, 77, 255}, (sfColor){67, 67, 67, 255},
@@ -88,7 +88,8 @@ static void add_button_datas(
     new_button->col_normal = normal_colors[col_preset];
     new_button->rect = sfRectangleShape_create();
     sfRectangleShape_setPosition(new_button->rect, pos);
-    sfRectangleShape_setSize(new_button->rect, (sfVector2f){200, 100});
+    sfRectangleShape_setSize(
+        new_button->rect, (sfVector2f){200, 60 + text_size});
     new_button->next = NULL;
 }
 
@@ -112,7 +113,7 @@ button_t *create_button(
     button_t *new_button = malloc(sizeof(button_t));
     button_t *tmp = head;
 
-    add_button_datas(new_button, pos, action.y);
+    add_button_datas(new_button, pos, action.y, my_strlen(text));
     add_button_texts(new_button, pos, action.y, text);
     new_button->action = action.x;
     new_button->callback = button_actions;
