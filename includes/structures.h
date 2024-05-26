@@ -138,6 +138,7 @@ typedef struct map_s {
     sfSprite *map;
     sfTexture *map_texture;
     map_layers_t *map_layers;
+    sprite_t **chests;
 } map_t;
 
 typedef struct config_s {
