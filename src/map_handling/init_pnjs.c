@@ -54,7 +54,6 @@ static int get_pnjs_part(map_t *map, int y, int j)
 void get_pnjs(map_t *map)
 {
     int j = 0;
-    int y = 0;
     int count = get_pnjs_count(map);
 
     map->pnjs = malloc(sizeof(sprite_t *) * count + 1);

@@ -12,7 +12,11 @@ static void on_key_press3(config_t *config)
 {
     switch ((config)->event->key.code) {
         case sfKeyI:
-            display_inventory(config->player->character);
+            if (config->is_menu == 0)
+                config->is_menu = 3;
+            else
+                config->is_menu = 0;
+            display_inventory(config->player->character, config);
             break;
         case sfKeyE:
             analyse_hitbox(config, config->player->direction);
@@ -63,7 +67,8 @@ void on_key_press(config_t *config)
                 sfMusic_pause(config->sounds->main_theme);
             break;
         default:
-            on_key_press2(config);
+            if (config->is_menu == 0)
+                on_key_press2(config);
             on_key_press3(config);
             break;
     }

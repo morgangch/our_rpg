@@ -56,7 +56,7 @@ void get_chests(map_t *map)
     int count = get_chests_count(map);
 
     map->chests = malloc(sizeof(sprite_t *) * count + 1);
-    for (int y = 0; y < 40; y++)
+    for (; y < 40; y++)
         j = get_chests_part(map, y, j);
     map->chests[j] = NULL;
 }
