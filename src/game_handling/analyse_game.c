@@ -27,7 +27,7 @@ static void on_key_press3(config_t *config)
     switch ((config)->event->key.code) {
         case sfKeyE:
         case sfKeyI:
-            display_inventory(config->player);
+            display_inventory(config->player->character);
             break;
         default:
             break;

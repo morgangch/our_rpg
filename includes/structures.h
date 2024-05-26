@@ -59,6 +59,7 @@ typedef struct character_s {
     int armor;
     int weapon;
     linked_list_int_t *inventory;
+    int inventory_size;
 } character_t;
 
 typedef struct mouvement_s {

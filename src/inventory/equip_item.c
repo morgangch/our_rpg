@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-static char *read_item(int item_id)
+char *read_item(int item_id)
 {
     int fd = open("items.txt", O_RDONLY);
     char *buffer = malloc(sizeof(char) * 1000);

@@ -8,10 +8,8 @@
 #include "my.h"
 #include <string.h>
 
-void to_fight(config_t *config, int enemy_type, int enemy_num)
+void to_fight(config_t *config, int enemy_num)
 {
-    if (enemy_num < 0 || enemy_num > 4)
-        enemy_type = 0;
     sfRenderWindow_setMouseCursorVisible(config->window, sfFalse);
     sfRenderWindow_drawSprite(config->window, config->active_map->map, NULL);
     sfRenderWindow_drawSprite(

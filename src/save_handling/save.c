@@ -31,6 +31,56 @@ static int *get_stats(character_t *character)
     return stats;
 }
 
+static linked_list_int_t *add_to_inventory(linked_list_int_t *inventory,
+    int item)
+{
+    linked_list_int_t *new = malloc(sizeof(linked_list_int_t));
+    linked_list_int_t *tmp = inventory;
+
+    new->data = item;
+    new->next = NULL;
+    if (inventory == NULL) {
+        inventory = new;
+        return inventory;
+    }
+    while (tmp->next != NULL)
+        tmp = tmp->next;
+    tmp->next = new;
+    return inventory;
+}
+
+linked_list_int_t *get_inventory(player_t *player, FILE *fp)
+{
+    linked_list_int_t *inventory = NULL;
+    int inventory_size;
+    int item;
+
+    fread(&inventory_size, sizeof(inventory_size), 1, fp);
+    for (int i = 0; i < inventory_size; i++) {
+        item = 0;
+        fread(&item, sizeof(item), 1, fp);
+        inventory = add_to_inventory(inventory, item);
+    }
+    return inventory;
+}
+
+static void save_inventory(player_t *player, FILE *fp)
+{
+    linked_list_int_t *tmp = player->character->inventory;
+    int inventory_size = 0;
+
+    while (tmp != NULL) {
+        inventory_size++;
+        tmp = tmp->next;
+    }
+    fwrite(&inventory_size, sizeof(inventory_size), 1, fp);
+    tmp = player->character->inventory;
+    while (tmp != NULL) {
+        fwrite(&tmp->data, sizeof(tmp->data), 1, fp);
+        tmp = tmp->next;
+    }
+}
+
 void save_player(player_t *player)
 {
     FILE *fp = fopen("save.txt", "w");
@@ -45,6 +95,7 @@ void save_player(player_t *player)
     fwrite(stats, sizeof(int), 14, fp);
     fwrite(&name_length, sizeof(name_length), 1, fp);
     fwrite(player->character->name, sizeof(char), name_length, fp);
+    save_inventory(player, fp);
     fclose(fp);
 }
 
@@ -97,6 +148,7 @@ player_t *load_player(void)
     fread(&name_length, sizeof(name_length), 1, fp);
     player->character->name = malloc(sizeof(char) * name_length);
     fread(player->character->name, sizeof(char), name_length, fp);
+    player->character->inventory = get_inventory(player, fp);
     fclose(fp);
     return player;
 }
