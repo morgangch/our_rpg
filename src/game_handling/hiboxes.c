@@ -45,5 +45,5 @@ void analyse_hitbox(config_t *config, int direction)
         direction);
     if (chest == -1)
         return;
-    open_chest(config, config->active_map->chests[chest]);
+    open_chest(config, config->active_map->chests[chest], chest);
 }

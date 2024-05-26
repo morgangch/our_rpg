@@ -116,6 +116,7 @@ static void load_map(map_t *map)
     sfSprite_setTexture(map->map, map->map_texture, sfTrue);
     map->map_layers = malloc(sizeof(map_layers_t));
     calc_datas_to_map(map, details);
+    get_pnjs(map);
     get_chests(map);
 }
 

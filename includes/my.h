@@ -106,6 +106,7 @@ sfVector2f get_future_pos(sfSprite *sprite, int direction);
 sfVector2f get_pos(int direction);
 void handle_key(config_t *config, int direction, int is_menu);
 int find_chest(config_t *config, int x, int y);
-void open_chest(config_t *config, sprite_t *chest);
+void open_chest(config_t *config, sprite_t *chest, int id);
 void get_chests(map_t *map);
 int get_chests_count(map_t *map);
+void get_pnjs(map_t *map);

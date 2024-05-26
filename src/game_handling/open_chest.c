@@ -16,15 +16,14 @@ int find_chest(config_t *config, int x, int y)
             && config->active_map->chests[i]->pos.y + 30 >= y
             && config->active_map->chests[i]->pos.y - 30 <= y)
             return i;
-        printf("Chest %d at %f, %f ignored\n", i,
-            config->active_map->chests[i]->pos.x,
-            config->active_map->chests[i]->pos.y);
     }
     return -1;
 }
 
-void open_chest(config_t *config, sprite_t *chest)
+void open_chest(config_t *config, sprite_t *chest, int id)
 {
-    printf("Chest opened\n");
+    printf("Chest %d opened\n", id);
+    chest->rect.left = 32;
+    sfSprite_setTextureRect(chest->sprite, chest->rect);
     return;
 }

@@ -24,9 +24,12 @@ static void clock_time_get(config_t *config)
 static void display_map(config_t *config)
 {
     sfRenderWindow_drawSprite(config->window, config->active_map->map, NULL);
-    for (int i = 0; i < config->active_map->chests[i] != NULL; i++)
+    for (int i = 0; config->active_map->chests[i] != NULL; i++)
         sfRenderWindow_drawSprite(
             config->window, config->active_map->chests[i]->sprite, NULL);
+    for (int i = 0; config->active_map->pnjs[i] != NULL; i++)
+        sfRenderWindow_drawSprite(
+            config->window, config->active_map->pnjs[i]->sprite, NULL);
 }
 
 void main_loop(config_t *config)
