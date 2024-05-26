@@ -21,4 +21,5 @@ void add_item_to_inventory(character_t *player, int item_id)
     while (tmp->next != NULL)
         tmp = tmp->next;
     tmp->next = new;
+    player->inventory_size++;
 }

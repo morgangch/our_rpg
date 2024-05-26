@@ -8,12 +8,6 @@
 #include "my.h"
 #include "structures.h"
 
-void test(character_t *character)
-{
-    add_item_to_inventory(character, 1);
-    add_item_to_inventory(character, 2);
-}
-
 character_t *create_character(void)
 {
     character_t *character = malloc(sizeof(character_t));
@@ -34,6 +28,5 @@ character_t *create_character(void)
     character->xp = 0;
     character->xp_max = 100;
     character->inventory = NULL;
-    test(character);
     return character;
 }
