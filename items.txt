@@ -1,1 +1,3 @@
-0;error_staff;2;404;404;0
+0;error_staff;2;404404;404404;0
+1;Armure_en_platine;5;100;500;assets/pl_armor.png
+2;Batton_du_grand_sage;2;100;500;assets/gs_staff.png
