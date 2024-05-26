@@ -24,7 +24,7 @@ SRCS =	$(wildcard src/buttons/*.c) \
 
 MAIN_SRC = src/main.c
 
-OBJ = $(SRCS:.c=.o)*
+OBJ = $(SRCS:.c=.o)
 MAIN_OBJ = $(MAIN_SRC:.c=.o)
 
 CFLAGS = -W -Wall -Wno-unused-parameter -Wextra
