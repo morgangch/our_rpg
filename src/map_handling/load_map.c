@@ -121,7 +121,7 @@ void load_map_player(config_t *config, int map_name)
 
     map->name = malloc(sizeof(char) * 7);
     sprintf(map->name, "map%02d", map_name);
-    fprintf(stderr, "Loading map: %s\n", map->name);
+    config->player->map = map_name;
     load_map(map);
     pos_str = strtok(map->map_layers->map_datas, "\n");
     strtok(pos_str, "=");

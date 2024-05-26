@@ -43,7 +43,7 @@ static void main_loop(config_t *config)
 void to_game(config_t *config)
 {
     config->active_map = malloc(sizeof(map_t));
-    load_map_player(config, 2);
+    load_map_player(config, config->player->map);
     sfRenderWindow_setMouseCursorVisible(config->window, sfFalse);
     sfMusic_stop(config->sounds->menu_theme);
     sfMusic_play(config->sounds->main_theme);

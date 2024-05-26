@@ -14,18 +14,18 @@ character_t *create_character(void)
 
     if (!character)
         return NULL;
-    character->current_hp = -1;
-    character->current_mp = -1;
-    character->gold = -1;
-    character->intelligence = -1;
-    character->level = -1;
-    character->luck = -1;
-    character->max_hp = -1;
-    character->max_mp = -1;
-    character->name = NULL;
-    character->strength = -1;
-    character->weapon = -1;
-    character->xp = -1;
-    character->xp_max = -1;
+    character->current_hp = 100;
+    character->current_mp = 100;
+    character->gold = 0;
+    character->intelligence = 0;
+    character->level = 1;
+    character->luck = 0;
+    character->max_hp = 100;
+    character->max_mp = 100;
+    character->name = my_strdup("Player");
+    character->strength = 0;
+    character->weapon = 0;
+    character->xp = 0;
+    character->xp_max = 100;
     return character;
 }

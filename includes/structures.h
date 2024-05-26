@@ -92,6 +92,7 @@ typedef struct player_s {
     int direction;
     int speed;
     int is_moving;
+    int map;
     sprite_t *sprite;
     character_t *character;
 } player_t;

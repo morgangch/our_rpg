@@ -41,6 +41,7 @@ void save_player(player_t *player)
     fwrite(&player->direction, sizeof(player->direction), 1, fp);
     fwrite(&player->speed, sizeof(player->speed), 1, fp);
     fwrite(&player->is_moving, sizeof(player->is_moving), 1, fp);
+    fwrite(&player->map, sizeof(player->map), 1, fp);
     fwrite(stats, sizeof(int), 14, fp);
     fwrite(&name_length, sizeof(name_length), 1, fp);
     fwrite(player->character->name, sizeof(char), name_length, fp);
@@ -68,9 +69,20 @@ static character_t *load_character(int *stats)
     return character;
 }
 
-player_t *load_player(void)
+static player_t *create_player_stat(void)
 {
     player_t *player = malloc(sizeof(player_t));
+
+    player->sprite = create_sprite("assets/sprites/Martin.png",
+        (sfIntRect){0, 0, 128, 128}, (offset_maxvalue_t){128, 128},
+        (sfVector2f){0, 0});
+    sfSprite_setScale(player->sprite->sprite, (sfVector2f){0.5, 0.5});
+    return player;
+}
+
+player_t *load_player(void)
+{
+    player_t *player = create_player_stat();
     FILE *fp = fopen("save.txt", "r");
     int *stats = malloc(sizeof(int) * 15);
     int name_length;
@@ -79,6 +91,7 @@ player_t *load_player(void)
     fread(&player->direction, sizeof(player->direction), 1, fp);
     fread(&player->speed, sizeof(player->speed), 1, fp);
     fread(&player->is_moving, sizeof(player->is_moving), 1, fp);
+    fread(&player->map, sizeof(player->map), 1, fp);
     fread(stats, sizeof(int), 14, fp);
     player->character = load_character(stats);
     fread(&name_length, sizeof(name_length), 1, fp);
@@ -91,9 +104,12 @@ player_t *load_player(void)
 void load_handler(config_t *config)
 {
     config->player = load_player();
+    to_game(config);
 }
 
 void save_handler(config_t *config)
 {
     save_player(config->player);
+    printf("Game saved\n");
+    close_window(config);
 }

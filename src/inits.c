@@ -101,7 +101,7 @@ static game_t *create_game(void)
     return game_toreturn;
 }
 
-static player_t *create_player(void)
+player_t *create_player(void)
 {
     player_t *player_toreturn = malloc(sizeof(player_t));
 
@@ -112,6 +112,9 @@ static player_t *create_player(void)
     player_toreturn->pos = (sfVector2f){0, 0};
     player_toreturn->speed = 10;
     player_toreturn->direction = 0;
+    player_toreturn->is_moving = 0;
+    player_toreturn->map = 2;
+    player_toreturn->character = create_character();
     return player_toreturn;
 }
 
