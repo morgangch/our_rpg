@@ -8,7 +8,7 @@
 #include "my.h"
 #include "structures.h"
 
-int take_dmg_e(character_t *ennemy, int dmg)
+int take_dmg_e(enemy_t *ennemy, int dmg)
 {
     ennemy->current_hp -= dmg;
     if (ennemy->current_hp <= 0)

@@ -9,8 +9,6 @@
 
 void m_menu_loop(config_t *config, sprite_t *sprite)
 {
-    sfVector2f mousePosition = {0, 0};
-
     while (config->is_menu == 1 && sfRenderWindow_isOpen(config->window)) {
         sfRenderWindow_clear(config->window, sfBlack);
         analyse_m_menu(config);
