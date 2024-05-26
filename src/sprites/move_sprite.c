@@ -11,11 +11,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void close_window(config_t *config)
-{
-    sfRenderWindow_close(config->window);
-}
-
 void move_sprite(config_t *config, sprite_t *sprite, sfVector2f value)
 {
     int new_x = sprite->pos.x + value.x;

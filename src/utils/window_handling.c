@@ -16,3 +16,8 @@ sfVector2f adapt_position(sfVector2f initial_pos, sfVideoMode mode)
     pos.y = (initial_pos.y * mode.height) / 1080;
     return pos;
 }
+
+void close_window(config_t *config)
+{
+    sfRenderWindow_close(config->window);
+}

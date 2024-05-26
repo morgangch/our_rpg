@@ -99,3 +99,4 @@ void display_button(button_t *tmp, sfRenderWindow *window);
 void display_buttons(button_t *buttons, sfRenderWindow *window);
 void analyse_s_menu(config_t *config);
 void to_s_menu(config_t *config);
+void main_loop(config_t *config);

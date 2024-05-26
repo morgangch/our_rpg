@@ -21,7 +21,7 @@ static void clock_time_get(config_t *config)
     sfClock_restart(config->clock);
 }
 
-static void main_loop(config_t *config)
+void main_loop(config_t *config)
 {
     float anim_delta_time = 0.0;
 

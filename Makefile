@@ -7,45 +7,25 @@
 
 NAME = myrpg
 
-SRCS =	src/frees_destructs.c \
-		src/analysefuncs.c \
-		src/altfuncs.c \
-		src/altfuncs2.c \
-		src/window_handling.c \
-		src/get_shortest_path.c \
-		src/get_score.c \
-		src/inits.c \
-		src/menus/m_menu_window.c \
-		src/menus/p_menu_window.c \
-		src/utils/buttons.c \
-		src/menus/settings_menu.c \
-		src/save_handling/new_game.c \
-		src/save_handling/save_load.c \
-		src/save_handling/save_make.c \
-		src/create_character.c \
-		src/map_handling/load_map.c \
-		src/take_dmg.c \
-		src/calculate_dmg.c \
-		src/to_game.c \
-		src/add_item_to_inventory.c \
-		src/remove_item_from_inventory.c \
-		src/equip_item.c \
-		src/switch_inventory_item.c \
-		src/calculate_dmg_teken.c \
-		src/do_turn_combat.c \
-		src/inventory.c \
-		src/save.c \
-		src/menus/analyse_elts.c \
-		src/menus/all_buttons.c \
-		##src/dialogs/*.c \
-		##src/fights/*.c \
-		##src/map_handling/*.c \
-		##src/movements/*.c \
-		##src/quests/*.c \
-		##src/save_handling/*.c \
-		##src/settings/*.c \
+SRCS =	$(wildcard src/buttons/*.c) \
+		$(wildcard src/dialogs/*.c) \
+		$(wildcard src/fights/*.c) \
+		$(wildcard src/game_handling/*.c) \
+		$(wildcard src/game_init/*.c) \
+		$(wildcard src/inventory/*.c) \
+		$(wildcard src/map_handling/*.c) \
+		$(wildcard src/menus/*.c) \
+		$(wildcard src/movements/*.c) \
+		$(wildcard src/quests/*.c) \
+		$(wildcard src/pathfinding/*.c) \
+		$(wildcard src/save_handling/*.c) \
+		$(wildcard src/sprites/*.c) \
+		$(wildcard src/utils/*.c) \
 
-OBJ = $(SRCS:.c=.o)
+MAIN_SRC = src/main.c
+
+OBJ = $(SRCS:.c=.o)*
+MAIN_OBJ = $(MAIN_SRC:.c=.o)
 
 CFLAGS = -W -Wall -Wno-unused-parameter -Wextra
 CPPFLAGS = -Iincludes
@@ -59,9 +39,9 @@ DBUGRUN_FLAGS = --leak-check=yes --show-leak-kinds=all --track-origins=yes \
 
 all:	$(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(MAIN_OBJ)
 	@$(MAKE) -C lib/my
-	@$(CC) -o $(NAME) $(OBJ) src/main.c -Iincludes $(LDFLAGS)
+	@$(CC) -o $(NAME) $(OBJ) $(MAIN_OBJ) -Iincludes $(LDFLAGS)
 
 test: $(OBJ)
 	@$(MAKE) -C lib/my
