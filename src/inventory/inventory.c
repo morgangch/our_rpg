@@ -19,6 +19,27 @@ static void create_inv_sprite(character_t *player, sfVector2f pos, int i)
         player->items_sprite[i]->sprite, (sfVector2f){1.75, 1.75});
 }
 
+static void init_armor_weapon(character_t *player, int i)
+{
+    char *item = NULL;
+
+    if (player->armor != 0) {
+        item = read_item(player->armor);
+        player->item_datas = str_to_word_array(item, ';');
+        create_inv_sprite(player, (sfVector2f){1385, 225}, i);
+        free(player->item_datas);
+        i++;
+    }
+    if (player->weapon != 0) {
+        item = read_item(player->weapon);
+        player->item_datas = str_to_word_array(item, ';');
+        create_inv_sprite(player, (sfVector2f){1585, 225}, i);
+        free(player->item_datas);
+        i++;
+    }
+    player->items_sprite[i] = NULL;
+}
+
 void init_inventory(
     character_t *player, config_t *config, linked_list_int_t *tmp)
 {
@@ -27,7 +48,7 @@ void init_inventory(
     int i = 0;
 
     player->items_sprite =
-        malloc(sizeof(sprite_t *) * player->inventory_size + 1);
+        malloc(sizeof(sprite_t *) * player->inventory_size + 3);
     for (; tmp != NULL; tmp = tmp->next) {
         item = read_item(tmp->data);
         player->item_datas = str_to_word_array(item, ';');
@@ -40,7 +61,7 @@ void init_inventory(
         free(player->item_datas);
         i++;
     }
-    player->items_sprite[i] = NULL;
+    init_armor_weapon(player, i);
 }
 
 void display_items_inventory(character_t *player, config_t *config)

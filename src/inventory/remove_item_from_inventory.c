@@ -24,5 +24,6 @@ void remove_item_from_inventory(character_t *player, int item_id)
     if (tmp == NULL)
         return;
     prev->next = tmp->next;
+    player->inventory_size--;
     free(tmp);
 }
