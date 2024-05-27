@@ -25,6 +25,7 @@ character_t *create_character(void)
     character->name = my_strdup("Player");
     character->strength = 0;
     character->weapon = 0;
+    character->armor = 0;
     character->xp = 0;
     character->xp_max = 100;
     character->inventory = NULL;
