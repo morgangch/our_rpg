@@ -8,9 +8,6 @@
 #include "../includes/my.h"
 #include "../includes/structures.h"
 
-//  create_sprite("assets/background.jpg", (sfIntRect){0, 0, 1920, 1080},
-//            (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});
-
 static void create_inv_sprite(character_t *player, sfVector2f pos, int i)
 {
     player->items_sprite[i] = create_sprite(player->item_datas[5],
@@ -86,6 +83,20 @@ void free_all_inventory(character_t *player)
     free(player->inventory);
 }
 
+static int click_on_item(character_t *player, sfVector2i mouse_pos)
+{
+    int i = 0;
+    sfVector2f pos;
+
+    for (; player->items_sprite[i] != NULL; i++) {
+        pos = player->items_sprite[i]->pos;
+        if (mouse_pos.x >= pos.x && mouse_pos.x <= pos.x + 64 * 1.75
+            && mouse_pos.y >= pos.y && mouse_pos.y <= pos.y + 64 * 1.75)
+            return i;
+    }
+    return -1;
+}
+
 void analyse_i_menu(config_t *config)
 {
     if (config->event->type == sfEvtKeyPressed) {
@@ -93,6 +104,15 @@ void analyse_i_menu(config_t *config)
             config->is_menu = 0;
             sfRenderWindow_setView(config->window, config->view);
             sfRenderWindow_setMouseCursorVisible(config->window, sfFalse);
+        }
+    }
+    if (config->event->type == sfEvtClosed)
+        sfRenderWindow_close(config->window);
+    if (config->event->type == sfEvtMouseButtonPressed) {
+        if (config->event->mouseButton.button == sfMouseLeft) {
+            click_on_item(config->player->character,
+                (sfVector2i){config->event->mouseButton.x,
+                    config->event->mouseButton.y});
         }
     }
 }
