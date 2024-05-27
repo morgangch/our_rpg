@@ -81,5 +81,11 @@ void handle_key(config_t *config, int direction, int is_menu)
     if (is_menu == 1)
         return;
     config->player->direction = direction;
-    move_sprite(config, config->player->sprite, pos);
+    if (move_sprite(config, config->player->sprite, pos) == 1
+        && config->player->character->quest_id != 0) {
+        move_quest(config,
+            config->player->character
+                ->quests[config->player->character->quest_id - 1],
+            pos);
+    }
 }

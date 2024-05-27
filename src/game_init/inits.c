@@ -132,6 +132,7 @@ static config_t *finish_config(config_t *config_toreturn)
             (offset_maxvalue_t){50, 100}, (sfVector2f){0, 0});
     config_toreturn->player = malloc(sizeof(player_t));
     config_toreturn->player = create_player();
+    quest_init(config_toreturn);
     return config_toreturn;
 }
 

@@ -5,10 +5,10 @@
 ** save
 */
 
-#include "my.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "my.h"
 
 static int *get_stats(character_t *character)
 {
@@ -31,8 +31,8 @@ static int *get_stats(character_t *character)
     return stats;
 }
 
-static linked_list_int_t *add_to_inventory(linked_list_int_t *inventory,
-    int item)
+static linked_list_int_t *add_to_inventory(
+    linked_list_int_t *inventory, int item)
 {
     linked_list_int_t *new = malloc(sizeof(linked_list_int_t));
     linked_list_int_t *tmp = inventory;
@@ -96,6 +96,8 @@ void save_player(player_t *player)
     fwrite(&name_length, sizeof(name_length), 1, fp);
     fwrite(player->character->name, sizeof(char), name_length, fp);
     save_inventory(player, fp);
+    fwrite(&player->character->quest_id, sizeof(player->character->quest_id),
+        1, fp);
     fclose(fp);
 }
 
@@ -124,9 +126,9 @@ static player_t *create_player_stat(void)
 {
     player_t *player = malloc(sizeof(player_t));
 
-    player->sprite = create_sprite("assets/sprites/Martin.png",
-        (sfIntRect){0, 0, 128, 128}, (offset_maxvalue_t){128, 128},
-        (sfVector2f){0, 0});
+    player->sprite =
+        create_sprite("assets/sprites/Martin.png", (sfIntRect){0, 0, 128, 128},
+            (offset_maxvalue_t){128, 128}, (sfVector2f){0, 0});
     sfSprite_setScale(player->sprite->sprite, (sfVector2f){0.5, 0.5});
     return player;
 }
@@ -149,6 +151,8 @@ player_t *load_player(void)
     player->character->name = malloc(sizeof(char) * name_length);
     fread(player->character->name, sizeof(char), name_length, fp);
     player->character->inventory = get_inventory(player, fp);
+    fread(&player->character->quest_id, sizeof(player->character->quest_id), 1,
+        fp);
     fclose(fp);
     return player;
 }
@@ -156,6 +160,7 @@ player_t *load_player(void)
 void load_handler(config_t *config)
 {
     config->player = load_player();
+    quest_init(config);
     to_game(config);
 }
 

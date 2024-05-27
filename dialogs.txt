@@ -1,0 +1,1 @@
+1;assets/dialogs/pnj1.png

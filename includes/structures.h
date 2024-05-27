@@ -60,9 +60,13 @@ typedef struct character_s {
     int armor;
     int weapon;
     char **item_datas;
+    char **equip_datas;
     sprite_t **items_sprite;
+    sprite_t **equiped_items;
+    sprite_t **quests;
     linked_list_int_t *inventory;
     int inventory_size;
+    int quest_id;
 } character_t;
 
 typedef struct mouvement_s {

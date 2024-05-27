@@ -21,6 +21,8 @@ void analyse_menu(config_t *config, int menu)
             analyse_s_menu(config);
         if (menu == 4)
             return analyse_i_menu(config);
+        if (menu == 5)
+            return analyse_d_menu(config);
         on_key_press(config);
     }
 }

@@ -40,10 +40,12 @@ void analyse_hitbox(config_t *config, int direction)
 {
     sfVector2f pos = get_future_pos(config->player->sprite->sprite, direction);
     int chest = find_chest(config, pos.x, pos.y);
+    int pnj = find_pnj(config, pos.x, pos.y);
 
     printf("Chest: %d analysed at %f, %f at dir %d\n", chest, pos.x, pos.y,
         direction);
-    if (chest == -1)
-        return;
-    open_chest(config, config->active_map->chests[chest], chest);
+    if (chest != -1)
+        open_chest(config, config->active_map->chests[chest], chest);
+    if (pnj != -1)
+        dialog_handling(config, pnj + 1, 0);
 }

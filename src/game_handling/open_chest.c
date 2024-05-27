@@ -22,6 +22,8 @@ int find_chest(config_t *config, int x, int y)
 
 void open_chest(config_t *config, sprite_t *chest, int id)
 {
+    if (chest->rect.left == 32)
+        return;
     printf("Chest %d opened\n", id);
     chest->rect.left = 32;
     sfSprite_setTextureRect(chest->sprite, chest->rect);

@@ -19,9 +19,11 @@ char *read_item(int item_id)
     items = str_to_word_array(buffer, '\n');
     for (int i = 0; items[i]; i++){
         if (atoi(items[i]) == item_id){
+            close(fd);
             return items[i];
         }
     }
+    close(fd);
     return NULL;
 }
 
@@ -43,4 +45,16 @@ void equip_item(character_t *player, int item_id)
         player->weapon = item_id;
     }
     remove_item_from_inventory(player, item_id);
+}
+
+void unequip_item(character_t *player, int type)
+{
+    printf("Unequiping %s\n", type == 1 ? "armor" : "weapon");
+    if (type == 1) {
+        add_item_to_inventory(player, player->armor);
+        player->armor = 0;
+    } else {
+        add_item_to_inventory(player, player->weapon);
+        player->weapon = 0;
+    }
 }

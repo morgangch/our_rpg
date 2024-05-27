@@ -32,6 +32,16 @@ static void display_map(config_t *config)
             config->window, config->active_map->pnjs[i]->sprite, NULL);
 }
 
+static void display_ui(config_t *config)
+{
+    int quest_id = config->player->character->quest_id;
+
+    if (quest_id > 0) {
+        sfRenderWindow_drawSprite(config->window,
+            config->player->character->quests[quest_id - 1]->sprite, NULL);
+    }
+}
+
 void main_loop(config_t *config)
 {
     float anim_delta_time = 0.0;
@@ -44,6 +54,8 @@ void main_loop(config_t *config)
         display_map(config);
         sfRenderWindow_drawSprite(
             config->window, config->player->sprite->sprite, NULL);
+        analyse_quests(config);
+        display_ui(config);
         sfRenderWindow_display(config->window);
         clock_time_get(config);
         basic_checks(config);
