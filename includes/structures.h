@@ -24,6 +24,7 @@
 
 typedef struct config_s config_t;
 typedef struct button_s button_t;
+typedef struct sprite_s sprite_t;
 
 typedef struct enemy_s {
     int current_hp;
@@ -58,6 +59,8 @@ typedef struct character_s {
     int gold;
     int armor;
     int weapon;
+    char **item_datas;
+    sprite_t **items_sprite;
     linked_list_int_t *inventory;
     int inventory_size;
 } character_t;

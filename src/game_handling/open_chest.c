@@ -25,5 +25,15 @@ void open_chest(config_t *config, sprite_t *chest, int id)
     printf("Chest %d opened\n", id);
     chest->rect.left = 32;
     sfSprite_setTextureRect(chest->sprite, chest->rect);
+    switch (id) {
+        case 0:
+            add_item_to_inventory(config->player->character, 1);
+            break;
+        case 1:
+            add_item_to_inventory(config->player->character, 2);
+            break;
+        default:
+            break;
+    }
     return;
 }
