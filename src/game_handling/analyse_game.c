@@ -23,6 +23,8 @@ void analyse_menu(config_t *config, int menu)
             return analyse_i_menu(config);
         if (menu == 5)
             return analyse_d_menu(config);
+        if (menu == 6)
+            return analyse_f_menu(config);
         on_key_press(config);
     }
 }

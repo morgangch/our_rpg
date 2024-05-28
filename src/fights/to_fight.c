@@ -5,21 +5,78 @@
 ** to_fight
 */
 
-#include "my.h"
 #include <string.h>
+#include "my.h"
 
-void to_fight(config_t *config, int enemy_num)
+enemy_t *get_enemy_datas(int enemy_id)
 {
-    sfRenderWindow_setMouseCursorVisible(config->window, sfFalse);
-    sfRenderWindow_drawSprite(config->window, config->active_map->map, NULL);
+    enemy_t *enemy = malloc(sizeof(enemy_t));
+
+    enemy->current_hp = 500;
+    enemy->max_hp = 500;
+    enemy->defense = 10;
+    enemy->attack = 10;
+    enemy->xp = 10;
+    enemy->gold = 10;
+    enemy->drops = malloc(sizeof(int) * 5);
+    enemy->drops_chance = malloc(sizeof(int) * 5);
+    enemy->drops_nb = malloc(sizeof(int) * 5);
+    enemy->sprite = create_sprite("assets/sprites/TheoPossess.png",
+        (sfIntRect){0, 0, 128, 128}, (offset_maxvalue_t){0, 0, 0, 0},
+        (sfVector2f){1920 / 2, 1080 / 2});
+    return enemy;
+}
+
+void init_fight(config_t *config, int enemy_id)
+{
+    if (config->fight->enemy != NULL)
+        free(config->fight->enemy);
+    config->fight->enemy = get_enemy_datas(enemy_id);
+    config->fight->enemy_id = enemy_id;
+    config->fight->turn = 0;
+}
+
+static void display_fight(config_t *config)
+{
+    sfRenderWindow_clear(config->window, sfBlack);
     sfRenderWindow_drawSprite(
-        config->window, config->player->sprite->sprite, NULL);
+        config->window, config->fight->enemy->sprite->sprite, NULL);
+    sfRenderWindow_drawSprite(
+        config->window, config->fight->player->sprite->sprite, NULL);
+    display_buttons(config->fight_menu_buttons, config->window);
     sfRenderWindow_display(config->window);
+}
+
+static void display_victory(config_t *config)
+{
+    config->fight->player->character->xp += config->fight->enemy->xp;
+    config->fight->player->character->gold += config->fight->enemy->gold;
     config->is_menu = 0;
-    if (config->view == NULL) {
-        config->view = sfView_createFromRect((sfFloatRect){0, 0, 1920, 1080});
-        sfView_setCenter(config->view, config->player->pos);
+}
+
+static void to_game_over(config_t *config)
+{
+    return;
+}
+
+void to_fight(config_t *config, int enemy_id)
+{
+    sfRenderWindow_setMouseCursorVisible(config->window, sfTrue);
+    init_fight(config, enemy_id);
+    config->is_menu = 6;
+    while (config->is_menu == 6) {
+        analyse_events(config, 6);
+        display_fight(config);
+        if (config->fight->player->character->current_hp <= 0)
+            to_game_over(config);
+        if (config->fight->enemy->current_hp <= 0)
+            display_victory(config);
     }
-    sfRenderWindow_setView(config->window, config->view);
-    main_loop(config);
+}
+
+void analyse_f_menu(config_t *config)
+{
+    if (config->event->type == sfEvtClosed)
+        close_window(config);
+    analyse_buttons(*config->event, config, config->fight_menu_buttons);
 }

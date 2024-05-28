@@ -50,8 +50,9 @@ static char *get_map_content(char *path, struct stat *st)
 
     if (fd == -1)
         return NULL;
-    buffer = malloc(sizeof(char) * st->st_size);
+    buffer = malloc(sizeof(char) * st->st_size + 1);
     read(fd, buffer, st->st_size);
+    buffer[st->st_size] = '\0';
     close(fd);
     return buffer;
 }
@@ -108,9 +109,11 @@ static void calc_datas_to_map(map_t *map, char **details)
 static void load_map(map_t *map)
 {
     char **details = get_map_details(map->name);
+    int fd = open(details[0], O_RDONLY);
 
-    if (open(details[0], O_RDONLY) == -1)
+    if (fd == -1)
         return;
+    close(fd);
     map->map_texture = sfTexture_createFromFile(details[0], NULL);
     map->map = sfSprite_create();
     sfSprite_setTexture(map->map, map->map_texture, sfTrue);

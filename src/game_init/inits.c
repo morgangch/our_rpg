@@ -32,6 +32,16 @@ sounds_t *create_sounds(void)
     return sounds_toreturn;
 }
 
+static void create_back_sprites_2(config_t *config, back_sprites_t *bsprite)
+{
+    bsprite->inventory_sprite = create_sprite("assets/inventory.png",
+        (sfIntRect){0, 0, config->mode.width, config->mode.height},
+        (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});
+    bsprite->fight_sprite = create_sprite("assets/fight.png",
+        (sfIntRect){0, 0, config->mode.width, config->mode.height},
+        (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});
+}
+
 static back_sprites_t *create_back_sprites(config_t *config)
 {
     back_sprites_t *bsprite = malloc(sizeof(back_sprites_t));
@@ -48,9 +58,7 @@ static back_sprites_t *create_back_sprites(config_t *config)
     bsprite->pausemenu_sprite = create_sprite("assets/pause_menu.jpg",
         (sfIntRect){0, 0, config->mode.width, config->mode.height},
         (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});
-    bsprite->inventory_sprite = create_sprite("assets/inventory.png",
-        (sfIntRect){0, 0, config->mode.width, config->mode.height},
-        (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});
+    create_back_sprites_2(config, bsprite);
     return bsprite;
 }
 
@@ -105,9 +113,9 @@ player_t *create_player(void)
 {
     player_t *player_toreturn = malloc(sizeof(player_t));
 
-    player_toreturn->sprite = create_sprite("assets/sprites/Martin.png",
-        (sfIntRect){0, 0, 128, 128}, (offset_maxvalue_t){128, 128},
-        (sfVector2f){0, 0});
+    player_toreturn->sprite =
+        create_sprite("assets/sprites/Martin.png", (sfIntRect){0, 0, 128, 128},
+            (offset_maxvalue_t){128, 128}, (sfVector2f){0, 0});
     sfSprite_setScale(player_toreturn->sprite->sprite, (sfVector2f){0.5, 0.5});
     player_toreturn->pos = (sfVector2f){0, 0};
     player_toreturn->speed = 10;
@@ -126,6 +134,8 @@ static config_t *finish_config(config_t *config_toreturn)
         create_buttons(config_toreturn->mode, 1);
     config_toreturn->settings_menu_buttons =
         create_buttons(config_toreturn->mode, 2);
+    config_toreturn->fight_menu_buttons =
+        create_buttons(config_toreturn->mode, 3);
     config_toreturn->texts = create_texts();
     config_toreturn->mouse_cursor =
         create_sprite("assets/mousecursor.png", (sfIntRect){0, 0, 50, 100},

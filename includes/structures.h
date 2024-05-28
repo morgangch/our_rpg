@@ -36,6 +36,7 @@ typedef struct enemy_s {
     int *drops;
     int *drops_chance;
     int *drops_nb;
+    sprite_t *sprite;
 } enemy_t;
 
 typedef struct linked_list_int_s {
@@ -123,6 +124,7 @@ typedef struct back_sprites_s {
     sprite_t *gameover_sprite;
     sprite_t *pausemenu_sprite;
     sprite_t *inventory_sprite;
+    sprite_t *fight_sprite;
 } back_sprites_t;
 
 typedef struct texts_s {
@@ -150,6 +152,13 @@ typedef struct map_s {
     sprite_t **pnjs;
 } map_t;
 
+typedef struct fight_s {
+    int enemy_id;
+    enemy_t *enemy;
+    player_t *player;
+    int turn;
+} fight_t;
+
 typedef struct config_s {
     sfVideoMode mode;
     sfRenderWindow *window;
@@ -161,6 +170,8 @@ typedef struct config_s {
     button_t *main_menu_buttons;
     button_t *pause_menu_buttons;
     button_t *settings_menu_buttons;
+    button_t *fight_menu_buttons;
+    fight_t *fight;
     sprite_t *mouse_cursor;
     sounds_t *sounds;
     back_sprites_t *bsprites;

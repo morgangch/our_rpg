@@ -64,6 +64,17 @@ static button_t *create_s_button(sfVideoMode mode, button_t *button)
     return button;
 }
 
+static button_t *create_f_button(sfVideoMode mode, button_t *button)
+{
+    button = create_button("Physical Attack",
+        adapt_position((sfVector2f){mode.width / 2 - 75,
+        mode.height / 2 - 100}, mode), button, (sfVector2i){1, 0});
+    button = create_button("Magic Attack",
+        adapt_position((sfVector2f){mode.width / 2 - 75,
+        mode.height / 2 - 0}, mode), button, (sfVector2i){2, 0});
+    return button;
+}
+
 button_t *create_buttons(sfVideoMode mode, int pause)
 {
     button_t *button = NULL;
@@ -74,5 +85,7 @@ button_t *create_buttons(sfVideoMode mode, int pause)
         button = create_p_button(mode, button);
     if (pause == 2)
         button = create_s_button(mode, button);
+    if (pause == 3)
+        button = create_f_button(mode, button);
     return button;
 }

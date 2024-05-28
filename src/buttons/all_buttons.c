@@ -41,9 +41,11 @@ static void change_resolution(config_t *config, int action)
 static void more_button_actions(config_t *config, int action)
 {
     if (action == 7)
-        return;
+        do_turn_combat(config->fight->player->character, config->fight->enemy,
+            1);
     if (action == 8)
-        return;
+        do_turn_combat(config->fight->player->character, config->fight->enemy,
+            2);
     if (action == 9)
         return;
     if (action == 10)

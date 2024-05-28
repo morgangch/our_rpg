@@ -19,10 +19,12 @@ static char *get_spell(int spell_id)
     read(fd, buffer, 1000);
     spells = str_to_word_array(buffer, '\n');
     for (int i = 0; spells[i]; i++){
-        if (atoi(spells[i]) == spell_id){
+        if (atoi(spells[i]) == spell_id) {
+            close(fd);
             return spells[i];
         }
     }
+    close(fd);
     return NULL;
 }
 
