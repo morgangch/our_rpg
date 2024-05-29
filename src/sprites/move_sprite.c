@@ -33,7 +33,6 @@ void move_quest(config_t *config, sprite_t *sprite, sfVector2f value)
 {
     int new_x = sprite->pos.x + value.x;
     int new_y = sprite->pos.y + value.y;
-    int link = 0;
 
     if (new_x < 0 || new_x > 1920 || new_y < 0 || new_y > 1920)
         return;

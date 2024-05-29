@@ -20,7 +20,8 @@ static int get_pnjs_count_part(map_t *map, int y)
     int count = 0;
 
     for (int i = 0; i < 40; i++) {
-        if (map->map_layers->map_interactibles[i][y] == 6)
+        if (map->map_layers->map_interactibles[i][y] == 6
+            || map->map_layers->map_interactibles[i][y] == 7)
             count++;
     }
     return count;
@@ -37,15 +38,22 @@ int get_pnjs_count(map_t *map)
 
 static int get_pnjs_part(map_t *map, int y, int j)
 {
+    int inter = 0;
+    char *path = NULL;
+
     for (int i = 0; i < 40; i++) {
-        if (map->map_layers->map_interactibles[i][y] == 6) {
-            map->pnjs[j] = create_sprite("assets/sprites/RM.png",
+        inter = map->map_layers->map_interactibles[i][y];
+        if (inter == 7 || inter == 6) {
+            path = inter == 6 ? strdup("assets/sprites/RM.png")g
+            : strdup("assets/sprites/TheoPossess.png");
+            map->pnjs[j] = create_sprite(path,
                 (sfIntRect){0, 0, 128, 128}, (offset_maxvalue_t){128, 128},
                 (sfVector2f){y * 40, i * 40});
             sfSprite_setScale(map->pnjs[j]->sprite, (sfVector2f){0.7, 0.7});
             sfSprite_setTextureRect(
-                map->pnjs[j]->sprite, (sfIntRect){128, 0, -128, 128});
+                map->pnjs[j]->sprite, (sfIntRect){0, 0, 128, 128});
             j++;
+            free(path);
         }
     }
     return j;

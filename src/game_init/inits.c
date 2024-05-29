@@ -37,7 +37,7 @@ static void create_back_sprites_2(config_t *config, back_sprites_t *bsprite)
     bsprite->inventory_sprite = create_sprite("assets/inventory.png",
         (sfIntRect){0, 0, config->mode.width, config->mode.height},
         (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});
-    bsprite->fight_sprite = create_sprite("assets/fight.png",
+    bsprite->fight_sprite = create_sprite("assets/fight.jpg",
         (sfIntRect){0, 0, config->mode.width, config->mode.height},
         (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});
 }
@@ -46,9 +46,6 @@ static back_sprites_t *create_back_sprites(config_t *config)
 {
     back_sprites_t *bsprite = malloc(sizeof(back_sprites_t));
 
-    bsprite->background_sprite =
-        create_sprite("assets/background.jpg", (sfIntRect){0, 0, 1920, 1080},
-            (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});
     bsprite->menu_sprite = create_sprite("assets/menu.jpg",
         (sfIntRect){0, 0, config->mode.width, config->mode.height},
         (offset_maxvalue_t){0, 0}, (sfVector2f){0, 0});

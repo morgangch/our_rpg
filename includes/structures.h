@@ -119,7 +119,6 @@ typedef struct sounds_s {
 } sounds_t;
 
 typedef struct back_sprites_s {
-    sprite_t *background_sprite;
     sprite_t *menu_sprite;
     sprite_t *gameover_sprite;
     sprite_t *pausemenu_sprite;
@@ -179,7 +178,7 @@ typedef struct config_s {
     texts_t *texts;
     map_t *active_map;
     sfView *view;
-    sfView *menu_view;
+    const sfView *menu_view;
 } config_t;
 
 typedef struct button_s {

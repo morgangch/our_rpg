@@ -118,3 +118,5 @@ int dialog_handling(config_t *config, int pnj_id, int line);
 void analyse_d_menu(config_t *config);
 void quest_init(config_t *config);
 void analyse_quests(config_t *config);
+void analyse_f_menu(config_t *config);
+void to_fight(config_t *config, int enemy_id);

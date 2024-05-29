@@ -22,18 +22,30 @@ enemy_t *get_enemy_datas(int enemy_id)
     enemy->drops_chance = malloc(sizeof(int) * 5);
     enemy->drops_nb = malloc(sizeof(int) * 5);
     enemy->sprite = create_sprite("assets/sprites/TheoPossess.png",
-        (sfIntRect){0, 0, 128, 128}, (offset_maxvalue_t){0, 0, 0, 0},
+        (sfIntRect){0, 0, 128, 128}, (offset_maxvalue_t){0, 0},
         (sfVector2f){1920 / 2, 1080 / 2});
     return enemy;
 }
 
+static void free_fight(config_t *config)
+{
+    free(config->fight->enemy->drops);
+    free(config->fight->enemy->drops_chance);
+    free(config->fight->enemy->drops_nb);
+    sfSprite_destroy(config->fight->enemy->sprite->sprite);
+    free(config->fight->enemy->sprite);
+    free(config->fight->enemy);
+}
+
 void init_fight(config_t *config, int enemy_id)
 {
-    if (config->fight->enemy != NULL)
-        free(config->fight->enemy);
+    if (config->fight != NULL)
+        free_fight(config);
+    config->fight = malloc(sizeof(fight_t));
     config->fight->enemy = get_enemy_datas(enemy_id);
     config->fight->enemy_id = enemy_id;
     config->fight->turn = 0;
+    config->fight->player = config->player;
 }
 
 static void display_fight(config_t *config)
@@ -68,9 +80,9 @@ void to_fight(config_t *config, int enemy_id)
         analyse_events(config, 6);
         display_fight(config);
         if (config->fight->player->character->current_hp <= 0)
-            to_game_over(config);
+            return to_game_over(config);
         if (config->fight->enemy->current_hp <= 0)
-            display_victory(config);
+            return display_victory(config);
     }
 }
 

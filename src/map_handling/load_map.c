@@ -54,6 +54,7 @@ static char *get_map_content(char *path, struct stat *st)
     read(fd, buffer, st->st_size);
     buffer[st->st_size] = '\0';
     close(fd);
+    free(st);
     return buffer;
 }
 
